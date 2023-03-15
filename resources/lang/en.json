@@ -1,0 +1,13 @@
+{
+    "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "register": "Register",
+    "forgot": "Forgot",
+    "create_your_account": "Create your Account",
+    "name": "Name",
+    "phone": "Phone number",
+    "already_have_account": "Already have account",
+    "register_success": "Register success",
+    "success": "Success"
+}
