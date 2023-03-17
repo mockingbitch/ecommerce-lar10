@@ -9,5 +9,11 @@
     "phone": "Phone number",
     "already_have_account": "Already have account",
     "register_success": "Register success",
-    "success": "Success"
+    "success": "Success",
+    "confirm_password": "Confirm Password",
+    "name_required": "The field name is required",
+    "email_required": "The field email is required",
+    "phone_required": "The field phone is required",
+    "confirm_password_required":"The field confirm password is required",
+    "password_required": "The field password is required"
 }

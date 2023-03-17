@@ -22,9 +22,24 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|between:2,100',
-            'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|confirmed|min:6',
+            'name'              => 'required|string|between:2,100',
+            'email'             => 'required|string|email|max:100|unique:users',
+            'phone'             => 'required|string|max:15',
+            'password'          => 'required|string|min:6',
+            'confirmPassword'   => 'same:password'
+        ];
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     */
+    public function messages(): array
+    {
+        return [
+            // 'name.required' => trans('name_required'),
+            // 'confirmPassword.same' => trans('')
         ];
     }
 }

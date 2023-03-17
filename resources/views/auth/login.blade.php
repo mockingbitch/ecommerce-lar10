@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login Dashboard</title>
+    <title>{{__('login')}}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -48,6 +48,7 @@
                 @endif
 
                 <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                    @if ($errors->has('email'))<p class="text-error">*{{$errors->first('email')}}</p>@endif
                     <input class="input100" type="email" name="email" placeholder="{{__('email')}}">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">

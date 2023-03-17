@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use App\Models\User;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
@@ -11,30 +13,42 @@ use App\Constants\Constant;
 
 class AuthController extends Controller
 {
-    public function viewLogin()
+    public function viewLogin() : View
     {
         return view('auth.login');
     }
 
-    public function login(LoginRequest $request)
+    /**
+     * @param LoginRequest $request
+     *
+     * @return RedirectResponse
+     */
+    public function login(LoginRequest $request) : RedirectResponse
     {
-        dd($request);
-        if (! $token = auth()->attempt([
+        if (! $user = auth()->attempt([
             'email' => $request->email,
             'password' => $request->password
         ])) {
-            return response()->json([
-                'error' => 'Unauthorized'
-            ], 401);
+            return redirect()->back()->with(Constant::MSG_ERROR, trans('auth_failed'));
         }
+
+        return redirect()->route('home')->with(Constant::MSG_INFO, trans('auth_success'));
     }
 
-    public function viewRegister()
+    /**
+;     * @return View
+     */
+    public function viewRegister() : View
     {
         return view('auth.register');
     }
 
-    public function register(Request $request)
+    /**
+     * @param RegisterRequest $request
+     *
+     * @return RedirectResponse
+     */
+    public function register(RegisterRequest $request) : RedirectResponse
     {
         $user = User::create([
             'name' => $request->name,
@@ -46,8 +60,10 @@ class AuthController extends Controller
         return redirect()->route('register')->with(Constant::MSG_SUCCESS, trans('register_success'));
     }
 
-
-    public function logout()
+    /**
+     * @return RedirectResponse
+     */
+    public function logout() : RedirectResponse
     {
         auth()->logout();
 

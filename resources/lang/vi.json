@@ -9,5 +9,11 @@
     "phone": "Số điện thoại",
     "already_have_account": "Đã có tài khoản",
     "register_success": "Đăng ký thành công",
-    "success": "Thành công"
+    "success": "Thành công",
+    "confirm_password": "Xác nhận mật khẩu",
+    "name_required": "Không được bỏ trống tên",
+    "email_required": "Không được bỏ trống email",
+    "phone_required": "",
+    "confirm_password_required":"",
+    "password_required": ""
 }

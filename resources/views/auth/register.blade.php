@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Register Dashboard</title>
+    <title>{{__('register')}}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -29,8 +29,12 @@
         body {
             font-family: "Literata", sans-serif !important;
         }
-        .login100-form-title, .input100, .txt2 {
+        .login100-form-title, .input100, .txt2, .text-error {
             font-family: "Literata", sans-serif !important;
+        }
+        .text-error {
+            color: red;
+            font-style: italic;
         }
     </style>
 </head>
@@ -48,35 +52,41 @@
 					<span class="login100-form-title">
 						<h1>{{__('register')}}</h1>
 					</span>
-                @if(isset($msg))
-                    <span style="color: red;">{{$msg}}</span>
-                @endif
-
+                @if ($errors->has('email'))<p class="text-error">* {{$errors->first('name')}}</p>@endif
                 <div class="wrap-input100 validate-input">
-                    <input class="input100" type="text" name="name" placeholder="{{__('name')}}">
+                    <input class="input100" type="text" name="name" placeholder="{{__('name')}}" value="{{Request::old('name')}}">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-user-o" aria-hidden="true"></i>
                     </span>
                 </div>
-
+                @if ($errors->has('email'))<p class="text-error">* {{$errors->first('email')}}</p>@endif
                 <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                    <input class="input100" type="email" name="email" placeholder="{{__('email')}}">
+                    <input class="input100" type="email" name="email" placeholder="{{__('email')}}" value="{{Request::old('email')}}">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
                     </span>
                 </div>
+                @if ($errors->has('email'))<p class="text-error">* {{$errors->first('phone')}}</p>@endif
                 <div class="wrap-input100 validate-input">
-                    <input class="input100" type="text" name="phone" placeholder="{{__('phone')}}">
+                    <input class="input100" type="text" name="phone" placeholder="{{__('phone')}}" value="{{Request::old('phone')}}">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-address-book" aria-hidden="true"></i>
                     </span>
                 </div>
-
+                @if ($errors->has('email'))<p class="text-error">* {{$errors->first('password')}}</p>@endif
                 <div class="wrap-input100 validate-input" data-validate = "Password is required">
                     <input class="input100" type="password" name="password" placeholder="{{__('password')}}">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                </div>
+                @if ($errors->has('email'))<p class="text-error">* {{$errors->first('confirmPassword')}}</p>@endif
+                <div class="wrap-input100 validate-input" data-validate = "Confirm password is required">
+                    <input class="input100" type="password" name="confirmPassword" placeholder="{{__('confirm_password')}}">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -85,7 +95,7 @@
 
                 <div class="container-login100-form-btn">
                     <button type="submit" class="login100-form-btn">
-                        {{-- <a href="login">Login</a> --}}
+                        <i class="fa fa-spinner" id="loader" style="display: none" aria-hidden="true"></i>
                         {{__('register')}}
                     </button>
                 </div>
@@ -126,6 +136,12 @@
 </script>
 <!--===============================================================================================-->
 <script src="{{asset('backend/vendor/js/main.js')}}"></script>
-
+<script>
+    $(function() {
+        $( "form" ).submit(function() {
+            $('#loader').show();
+        });
+    });
+    </script>
 </body>
 </html>
