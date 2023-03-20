@@ -6,5 +6,5 @@ use App\Repositories\BaseRepositoryInterface;
 
 interface CategoryRepositoryInterface extends BaseRepositoryInterface
 {
-    public function getAvailableCategories();
+    public function getAvailableCategory();
 }

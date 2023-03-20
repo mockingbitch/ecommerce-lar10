@@ -20,11 +20,11 @@ class CreateProductsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->unsignedBigInteger('brand_id');
             $table->foreign('brand_id')->references('id')->on('brands');
-            $table->string('description');
-            $table->text('content');
-            $table->bigInteger('price');
-            $table->string('image');
-            $table->string('quantity');
+            $table->string('description')->nullable();
+            $table->text('content')->nullable();
+            $table->bigInteger('price')->nullable();
+            $table->string('image')->nullable();
+            $table->string('quantity')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -44,8 +44,8 @@ class Constant
         'delete_success' => self::ERR_MSG_DELETE_SUCCESS
     ];
 
-    public const STATUS_AVAILABLE   = 'AVAILABLE';
-    public const STATUS_UNAVAILABLE = 'UNAVAILABLE';
+    public const STATUS_AVAILABLE   = 1;
+    public const STATUS_UNAVAILABLE = 0;
 
     public const STATUS = [
         'available'     => self::STATUS_AVAILABLE,

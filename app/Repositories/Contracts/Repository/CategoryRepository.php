@@ -7,6 +7,7 @@ use App\Repositories\Contracts\Interface\CategoryRepositoryInterface;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Collection;
 use App\Constants\CategoryConstant;
+use App\Constants\Constant;
 
 class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
 {
@@ -18,7 +19,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     /**
      * @return Collection|null
      */
-    public function getAvailableCategories() : ?Collection
+    public function getAvailableCategory() : ?Collection
     {
         return $this->model
                 ->where(CategoryConstant::COLUMN['status'], Constant::STATUS['available'])

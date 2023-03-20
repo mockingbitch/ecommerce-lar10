@@ -5,29 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use App\Repositories\Contracts\Interface\CategoryRepositoryInterface;
-use App\Constants\CategoryConstant;
+use App\Repositories\Contracts\Interface\BrandRepositoryInterface;
+use App\Constants\BrandConstant;
 use App\Constants\RouteConstant;
 use App\Constants\Constant;
 
-class CategoryController extends Controller
+class BrandController extends Controller
 {
     /**
      * @var string
      */
-    protected $breadcrumb = CategoryConstant::BREADCRUMB;
+    protected $breadcrumb = BrandConstant::BREADCRUMB;
 
     /**
-     * @var categoryRepository
+     * @var brandRepository
      */
-    protected $categoryRepository;
+    protected $brandRepository;
 
     /**
-     * @param CategoryRepositoryInterface $categoryRepository
+     * @param BrandRepositoryInterface $brandRepository
      */
-    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    public function __construct(BrandRepositoryInterface $brandRepository)
     {
-        $this->categoryRepository = $categoryRepository;
+        $this->brandRepository = $brandRepository;
     }
 
     /**
@@ -37,8 +37,8 @@ class CategoryController extends Controller
      */
     public function list(Request $request) : View
     {
-        return view('dashboard.list.category', [
-            'categories' => $this->categoryRepository->getAll()
+        return view('dashboard.list.brand', [
+            'brands' => $this->brandRepository->getAll()
         ]);
     }
 
@@ -47,7 +47,7 @@ class CategoryController extends Controller
      */
     public function viewCreate() : View
     {
-        return view('dashboard.create.category', [
+        return view('dashboard.create.brand', [
             'breadcrumb' => $this->breadcrumb
         ]);
     }
@@ -59,16 +59,16 @@ class CategoryController extends Controller
      */
     public function create(Request $request) : RedirectResponse
     {
-        if (! $this->categoryRepository->create($request->toArray())) :
+        if (! $this->brandRepository->create($request->toArray())) :
             return redirect()
-                ->route(RouteConstant::DASHBOARD['category_create'])
+                ->route(RouteConstant::DASHBOARD['brand_create'])
                 ->with([
                     'errMsg' => Constant::ERR_MSG['create_fail']
                 ]);
         endif;
 
         return redirect()
-            ->route(RouteConstant::DASHBOARD['category_create'])
+            ->route(RouteConstant::DASHBOARD['brand_create'])
             ->with([
                 'msg' => Constant::ERR_MSG['create_success']
             ]);
@@ -81,18 +81,18 @@ class CategoryController extends Controller
      */
     public function viewUpdate(Request $request) : View|RedirectResponse
     {
-        $category = $this->categoryRepository->find($request->id);
+        $brand = $this->brandRepository->find($request->id);
 
-        if (null == $category || $category == '') :
+        if (null == $brand || $brand == '') :
             return redirect()
-                ->route(RouteConstant::DASHBOARD['category_list'])
+                ->route(RouteConstant::DASHBOARD['brand_list'])
                 ->with([
-                    'errMsg' => CategoryConstant::ERR_MSG_NOT_FOUND
+                    'errMsg' => BrandConstant::ERR_MSG_NOT_FOUND
                 ]);
         endif;
 
-        return view('dashboard.update.category', [
-            'category' => $category,
+        return view('dashboard.update.brand', [
+            'brand' => $brand,
             'breadcrumb' => $this->breadcrumb
         ]);
     }
@@ -104,13 +104,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request) : RedirectResponse
     {
-        if (! $this->categoryRepository->find($request->id)) :
+        if (! $this->brandRepository->find($request->id)) :
             return redirect()
-                ->route(RouteConstant::DASHBOARD['category_list'])
-                ->with('errMsg', CategoryConstant::ERR_MSG_NOT_FOUND);
+                ->route(RouteConstant::DASHBOARD['brand_list'])
+                ->with('errMsg', BrandConstant::ERR_MSG_NOT_FOUND);
         endif;
 
-        if (! $this->categoryRepository->update($categoryId, $request->toArray())) :
+        if (! $this->brandRepository->update($brandId, $request->toArray())) :
             return redirect()
                 ->back()
                 ->with([
@@ -132,7 +132,7 @@ class CategoryController extends Controller
      */
     public function delete(Request $request) : bool
     {
-        if (! $this->categoryRepository->delete($request->id)) :
+        if (! $this->brandRepository->delete($request->id)) :
             return false;
         endif;
 

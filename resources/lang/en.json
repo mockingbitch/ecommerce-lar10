@@ -15,5 +15,7 @@
     "email_required": "The field email is required",
     "phone_required": "The field phone is required",
     "confirm_password_required":"The field confirm password is required",
-    "password_required": "The field password is required"
+    "password_required": "The field password is required",
+    "close": "Close",
+    "warning": "Warning"
 }

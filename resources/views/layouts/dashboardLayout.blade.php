@@ -86,7 +86,7 @@ use App\Constants\DashboardConstant;
             </a>
             </li>
             <li class="nav-item">
-            <a class="nav-link {{$breadcrumb == DashboardConstant::BREADCRUMB['table'] ? 'active' : ''}}" href="#">
+            <a class="nav-link {{$breadcrumb == DashboardConstant::BREADCRUMB['brand'] ? 'active' : ''}}" href="{{route(RouteConstant::DASHBOARD['brand_list'])}}">
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                 <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     {{-- <title>box-3d-50</title> --}}
@@ -103,11 +103,11 @@ use App\Constants\DashboardConstant;
                     </g>
                 </svg>
                 </div>
-                <span class="nav-link-text ms-1">Quản lý bàn</span>
+                <span class="nav-link-text ms-1">Quản lý thương hiệu</span>
             </a>
             </li>
             <li class="nav-item">
-            <a class="nav-link {{$breadcrumb == DashboardConstant::BREADCRUMB['product'] ? 'active' : ''}}" href="#">
+            <a class="nav-link {{$breadcrumb == DashboardConstant::BREADCRUMB['product'] ? 'active' : ''}}" href="{{route(RouteConstant::DASHBOARD['product_list'])}}">
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                 <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     {{-- <title>settings</title> --}}

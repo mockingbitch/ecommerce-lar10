@@ -26,7 +26,7 @@ use App\Constants\RouteConstant;
             </div>
         </div>
 
-        <a class="btn btn-secondary" href="{{route(RouteConstant::DASHBOARD['category_list'])}}">Trở về</a>
+        <a class="btn btn-secondary" href="{{route(RouteConstant::DASHBOARD['brand_list'])}}">Trở về</a>
         <button type="submit" class="btn btn-primary">Thêm mới</button>
     </form>
 </div>

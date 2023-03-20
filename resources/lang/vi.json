@@ -15,5 +15,7 @@
     "email_required": "Không được bỏ trống email",
     "phone_required": "",
     "confirm_password_required":"",
-    "password_required": ""
+    "password_required": "",
+    "close": "Close",
+    "warning": "Warning"
 }
