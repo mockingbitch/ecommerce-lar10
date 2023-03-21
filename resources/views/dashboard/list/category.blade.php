@@ -8,9 +8,9 @@ use App\Constants\RouteConstant;
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card mb-4">
             <div class="card-header pb-0">
-                <h3 align="center" style="text-shadow: 1px 1px 2px grey;">Danh sách danh mục</h3>
+                <h3 align="center" style="text-shadow: 1px 1px 2px grey;">{{__('category_list')}}</h3>
                 <a href="{{route(RouteConstant::DASHBOARD['category_create'])}}">
-                    <button class="btn btn-primary" style="float: right;">Thêm mới</button>
+                    <button class="btn btn-primary" style="float: right;">{{__('create')}}</button>
                 </a>
             </div>
 
@@ -19,9 +19,9 @@ use App\Constants\RouteConstant;
                     <table class="table align-items-center mb-0">
                         <thead>
                         <tr>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-9"><b>Tên danh mục</b></th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-9 ps-2"><b>Mô tả</b></th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-9"><b>Trạng thái</b></th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-9"><b>{{__('category_name')}}</b></th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-9 ps-2"><b>{{__('category_description')}}</b></th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-9"><b>{{__('status')}}</b></th>
                         </tr>
                         </thead>
                         <tbody>

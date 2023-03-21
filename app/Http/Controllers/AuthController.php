@@ -25,18 +25,18 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request) : RedirectResponse
     {
-        if (! $user = auth()->attempt([
-            'email' => $request->email,
-            'password' => $request->password
+        if (! $user = auth()->guard('user')->attempt([
+            'email'     => $request->email,
+            'password'  => $request->password
         ])) {
-            return redirect()->back()->with(Constant::MSG_ERROR, trans('auth_failed'));
+            return redirect()->back()->with('errMsg', trans('auth_failed'));
         }
 
-        return redirect()->route('home')->with(Constant::MSG_INFO, trans('auth_success'));
+        return redirect()->route('home')->with('msg', trans('auth_success'));
     }
 
     /**
-;     * @return View
+     * @return View
      */
     public function viewRegister() : View
     {
@@ -65,7 +65,7 @@ class AuthController extends Controller
      */
     public function logout() : RedirectResponse
     {
-        auth()->logout();
+        auth()->guard('user')->logout();
 
         return redirect()->route('login');
     }

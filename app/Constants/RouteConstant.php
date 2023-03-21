@@ -9,6 +9,8 @@ class RouteConstant
     public const LOGOUT     = 'logout';
     public const ERROR      = 'error';
 
+    public const CHANGE_LANG = 'change_language';
+
     public const DASHBOARD_HOME             = 'dashboard.home';
     public const DASHBOARD_CATEGORY_LIST    = 'dashboard.category.list';
     public const DASHBOARD_CATEGORY_CREATE  = 'dashboard.category.create';

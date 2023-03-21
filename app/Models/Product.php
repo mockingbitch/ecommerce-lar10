@@ -21,4 +21,14 @@ class Product extends Model
         'image',
         'quantity'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(\App\Models\Category::class, 'category_id');
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(\App\Models\Brand::class, 'brand_id');
+    }
 }

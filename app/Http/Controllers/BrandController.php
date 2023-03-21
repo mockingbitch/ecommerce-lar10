@@ -38,7 +38,8 @@ class BrandController extends Controller
     public function list(Request $request) : View
     {
         return view('dashboard.list.brand', [
-            'brands' => $this->brandRepository->getAll()
+            'brands'        => $this->brandRepository->getAll(),
+            'breadcrumb'    => $this->breadcrumb
         ]);
     }
 

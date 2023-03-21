@@ -102,15 +102,15 @@ class ProductController extends Controller
     }
 
     /**
-     * @param integer|null $id
+     * @param Request $request
      * @return View|RedirectResponse
      */
-    public function viewUpdate(?int $id) : View|RedirectResponse
+    public function viewUpdate(Request $request) : View|RedirectResponse
     {
         try {
-            $product    = $this->productRepository->find($id);
+            $product    = $this->productRepository->find($request->id);
             $categories = $this->categoryRepository->getAvailableCategory();
-            $brands     = $this->brandsRepository->getAvailableBrand();
+            $brands     = $this->brandRepository->getAvailableBrand();
 
             if  (! $categories || null === $categories || count($categories) == 0 || null == $product) :
                 return redirect()

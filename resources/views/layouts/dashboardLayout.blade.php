@@ -4,7 +4,6 @@ use App\Constants\DashboardConstant;
 
     // $user = Auth::guard('user')->user();
     $user ='';
-    $breadcrumb = '';
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +12,7 @@ use App\Constants\DashboardConstant;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="{{asset('upload/images/favicon.png')}}">
+    <link rel="icon" type="image/png" href="{{asset('upload/images/logo.png')}}">
     <title>
         Techshop
     </title>
@@ -38,8 +37,8 @@ use App\Constants\DashboardConstant;
         <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="" target="_blank">
-            <img src="{{asset('upload/images/favicon.png')}}" class="navbar-brand-img h-100" alt="main_logo">
-            <span class="ms-1 font-weight-bold">The Light</span>
+            <img src="{{asset('upload/images/logo.png')}}" class="navbar-brand-img h-100" alt="main_logo">
+            <span class="ms-1 font-weight-bold">Techshop</span>
         </a>
         </div>
         <hr class="horizontal dark mt-0">
@@ -62,7 +61,7 @@ use App\Constants\DashboardConstant;
                     </g>
                 </svg>
                 </div>
-                <span class="nav-link-text ms-1">Trang quản trị</span>
+                <span class="nav-link-text ms-1">{{__('page_dashboard')}}</span>
             </a>
             </li>
             <li class="nav-item">
@@ -82,7 +81,7 @@ use App\Constants\DashboardConstant;
                     </g>
                 </svg>
                 </div>
-                <span class="nav-link-text ms-1">Quản lý danh mục</span>
+                <span class="nav-link-text ms-1">{{__('page_category')}}</span>
             </a>
             </li>
             <li class="nav-item">
@@ -103,7 +102,7 @@ use App\Constants\DashboardConstant;
                     </g>
                 </svg>
                 </div>
-                <span class="nav-link-text ms-1">Quản lý thương hiệu</span>
+                <span class="nav-link-text ms-1">{{__('page_brand')}}</span>
             </a>
             </li>
             <li class="nav-item">
@@ -124,7 +123,7 @@ use App\Constants\DashboardConstant;
                     </g>
                 </svg>
                 </div>
-                <span class="nav-link-text ms-1">Quản lý sản phẩm</span>
+                <span class="nav-link-text ms-1">{{__('page_product')}}</span>
             </a>
             </li>
             <li class="nav-item">
@@ -144,12 +143,12 @@ use App\Constants\DashboardConstant;
                     </g>
                 </svg>
                 </div>
-                <span class="nav-link-text ms-1">Hóa đơn</span>
+                <span class="nav-link-text ms-1">{{__('page_order')}}</span>
             </a>
             </li>
 
             <li class="nav-item mt-3">
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Cá nhân</h6>
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">{{__('profile')}}</h6>
             </li>
             <li class="nav-item">
             <a class="nav-link {{$breadcrumb == DashboardConstant::BREADCRUMB['user'] ? 'active' : ''}}" href="#">
@@ -170,7 +169,7 @@ use App\Constants\DashboardConstant;
                     </g>
                 </svg>
                 </div>
-                <span class="nav-link-text ms-1">Quản lý nhân sự</span>
+                <span class="nav-link-text ms-1">{{__('page_users')}}</span>
             </a>
             </li>
 
@@ -184,8 +183,8 @@ use App\Constants\DashboardConstant;
                 <i class="ni ni-diamond text-dark text-gradient text-lg top-0" aria-hidden="true" id="sidenavCardIcon"></i>
             </div>
             <div class="docs-info">
-                <h6 class="text-white up mb-0">Cần trợ giúp?</h6>
-                <p class="text-xs font-weight-bold">Hãy đọc thêm tài liệu của chúng tôis</p>
+                <h6 class="text-white up mb-0">{{__('need_help')}}?</h6>
+                <p class="text-xs font-weight-bold">{{__('read_our_documentation')}}</p>
                 <a href="https://github.com/mockingbitch" target="_blank" class="btn btn-white btn-sm w-100 mb-0">Documentation</a>
             </div>
             </div>
@@ -199,21 +198,21 @@ use App\Constants\DashboardConstant;
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Trang</a></li>
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">{{__('page')}}</a></li>
                     <li class="breadcrumb-item text-sm text-dark active" aria-current="page">{{$breadcrumb}}</li>
                 </ol>
-                <h6 class="font-weight-bolder mb-0">Trang quản trị</h6>
+                <h6 class="font-weight-bolder mb-0">{{__('page_dashboard')}}</h6>
                 </nav>
             <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
             <div class="ms-md-auto pe-md-3 d-flex align-items-center input-search">
                 <div class="input-group">
                 <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" placeholder="Tìm kiếm...">
+                <input type="text" class="form-control" placeholder="{{__('search')}}...">
                 </div>
             </div>
             <ul class="navbar-nav  justify-content-end">
                 <li class="nav-item d-flex align-items-center">
-                <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="" href="#">Trang chủ</a>
+                <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="" href="{{route(RouteConstant::HOMEPAGE)}}">{{__('home_page')}}</a>
                 </li>
                 {{-- drop down logout  --}}
                 <li class="nav-item dropdown pe-2 d-flex align-items-center">
@@ -222,23 +221,23 @@ use App\Constants\DashboardConstant;
                     {{-- <span class="d-sm-inline d-none">{{$user->name}}</span> --}}
                 </a>
                 <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                    <li class="mb-2">
-                    <a class="dropdown-item border-radius-md" href="javascript:;">
-                        <div class="d-flex py-1">
-                        {{-- <div class="my-auto">
-                            <img src="{{asset('dashboard/assets/img/team-2.jpg')}}" class="avatar avatar-sm  me-3 ">
-                        </div> --}}
-                        <div class="d-flex flex-column justify-content-center">
-                            <h6 class="text-sm font-weight-normal mb-1">
-                                <span class="font-weight-bold" onclick="handleLogout()">Đăng xuất</span>
-                            </h6>
-                            {{-- <p class="text-xs text-secondary mb-0 ">
-                            <i class="fa fa-clock me-1"></i>
-                            13 minutes ago
-                            </p> --}}
-                        </div>
-                        </div>
-                    </a>
+                    <li class="mb-2" onclick="handleLogout()">
+                        <a class="dropdown-item border-radius-md" href="javascript:;">
+                            <div class="d-flex py-1">
+                            {{-- <div class="my-auto">
+                                <img src="{{asset('dashboard/assets/img/team-2.jpg')}}" class="avatar avatar-sm  me-3 ">
+                            </div> --}}
+                            <div class="d-flex flex-column justify-content-center">
+                                <h6 class="text-sm font-weight-normal mb-1">
+                                    <span class="font-weight-bold">{{__('logout')}}</span>
+                                </h6>
+                                {{-- <p class="text-xs text-secondary mb-0 ">
+                                <i class="fa fa-clock me-1"></i>
+                                13 minutes ago
+                                </p> --}}
+                            </div>
+                            </div>
+                        </a>
                     </li>
                 </ul>
                 </li>
@@ -345,22 +344,22 @@ use App\Constants\DashboardConstant;
                     © <script>
                     document.write(new Date().getFullYear())
                     </script>,
-                    Copyright - The Light
+                    Copyright - Techshop
                 </div>
                 </div>
                 <div class="col-lg-6">
                 <ul class="nav nav-footer justify-content-center justify-content-lg-end">
                     <li class="nav-item">
-                    <a href="" class="nav-link text-muted" target="_blank">The Light</a>
+                    <a href="" class="nav-link text-muted" target="_blank">Techshop</a>
                     </li>
                     <li class="nav-item">
-                    <a href="" class="nav-link text-muted" target="_blank">Về chúng tôi</a>
+                    <a href="" class="nav-link text-muted" target="_blank">{{__('about_us')}}</a>
                     </li>
                     <li class="nav-item">
-                    <a href="" class="nav-link text-muted" target="_blank">Blog</a>
+                    <a href="" class="nav-link text-muted" target="_blank">{{__('blog')}}</a>
                     </li>
                     <li class="nav-item">
-                    <a href="" class="nav-link pe-0 text-muted" target="_blank">Chứng chỉ</a>
+                    <a href="" class="nav-link pe-0 text-muted" target="_blank">{{__('license')}}</a>
                     </li>
                 </ul>
                 </div>
@@ -376,8 +375,8 @@ use App\Constants\DashboardConstant;
         <div class="card shadow-lg ">
         <div class="card-header pb-0 pt-3 ">
             <div class="float-start">
-            <h5 class="mt-3 mb-0">The Light Configurator</h5>
-            <p>See our dashboard options.</p>
+            <h5 class="mt-3 mb-0">{{__('techshop_configurator')}}</h5>
+            <p>{{__('see_our_dashboard_options')}}.</p>
             </div>
             <div class="float-end mt-4">
             <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
@@ -390,7 +389,7 @@ use App\Constants\DashboardConstant;
         <div class="card-body pt-sm-3 pt-0">
             <!-- Sidebar Backgrounds -->
             <div>
-            <h6 class="mb-0">Sidebar Colors</h6>
+            <h6 class="mb-0">{{__('sidebar_colors')}}</h6>
             </div>
             <a href="javascript:void(0)" class="switch-trigger background-color">
             <div class="badge-colors my-2 text-start">
@@ -404,12 +403,12 @@ use App\Constants\DashboardConstant;
             </a>
             <!-- Sidenav Type -->
             <div class="mt-3">
-            <h6 class="mb-0">Sidenav Type</h6>
-            <p class="text-sm">Choose between 2 different sidenav types.</p>
+            <h6 class="mb-0">{{__('language')}}</h6>
+            <p class="text-sm">{{__('please_choose_language')}}</p>
             </div>
             <div class="d-flex">
-            <button class="btn bg-gradient-primary w-100 px-3 mb-2 active" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
-            <button class="btn bg-gradient-primary w-100 px-3 mb-2 ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
+            <a class="btn bg-gradient-primary w-100 px-3 mb-2 active" href="{{route(RouteConstant::CHANGE_LANG, ['language' => 'vi'])}}" data-class="bg-transparent">{{__('lang_vi')}}</a>
+            <a class="btn bg-gradient-primary w-100 px-3 mb-2 ms-2" href="{{route(RouteConstant::CHANGE_LANG, ['language' => 'en'])}}" data-class="bg-white">{{__('lang_en')}}</a>
             </div>
             <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
             <!-- Navbar Fixed -->
@@ -450,7 +449,7 @@ use App\Constants\DashboardConstant;
         }
 
         function handleLogout() {
-        window.location.assign('/logout');
+            window.location.assign('/logout');
         }
 
         $(document).ready(function(){

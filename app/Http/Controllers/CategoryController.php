@@ -38,7 +38,8 @@ class CategoryController extends Controller
     public function list(Request $request) : View
     {
         return view('dashboard.list.category', [
-            'categories' => $this->categoryRepository->getAll()
+            'categories' => $this->categoryRepository->getAll(),
+            'breadcrumb' => $this->breadcrumb
         ]);
     }
 

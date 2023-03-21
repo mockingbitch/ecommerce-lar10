@@ -25,6 +25,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('price')->nullable();
             $table->string('image')->nullable();
             $table->string('quantity')->nullable();
+            $table->string('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

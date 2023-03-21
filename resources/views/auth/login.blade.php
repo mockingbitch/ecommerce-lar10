@@ -20,6 +20,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('backend/vendor/css/util.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('backend/vendor/css/main.css')}}">
     <!--===============================================================================================-->
+    <script src="{{asset('dashboard/assets/js/swal.js')}}"></script>
+
     <style>
         body {
             font-family: "Literata", sans-serif !important;
@@ -91,7 +93,16 @@
     </div>
 </div>
 
-
+@if (Session::has('msg'))
+    <script>
+        swal({title: "{{__('success')}}",text: "{{Session::get('msg')}}", icon: "success",button: "{{__('close')}}",});
+    </script>
+@endif
+@if (Session::has('errMsg'))
+    <script>
+        swal({title: "{{__('warning')}}",text: "{{Session::get('errMsg')}}", icon: "warning",button: "{{__('close')}}",});
+    </script>
+@endif
 
 
 <!--===============================================================================================-->
