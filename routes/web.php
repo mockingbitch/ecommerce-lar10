@@ -58,17 +58,25 @@ Route::group(['middleware' => 'locale'], function() {
 
             //PRODUCT
             Route::prefix('product')->group(function () {
-                Route::get('/', [PRODUCT::class, 'list'])->name(RouteConstant::DASHBOARD['product_list']);
-                Route::get('create', [PRODUCT::class, 'viewCreate'])->name(RouteConstant::DASHBOARD['product_create']);
-                Route::post('create', [PRODUCT::class, 'create']);
-                Route::get('update', [PRODUCT::class, 'viewupdate'])->name(RouteConstant::DASHBOARD['product_update']);
-                Route::post('update', [PRODUCT::class, 'update']);
-                Route::get('delete', [PRODUCT::class, 'delete'])->name(RouteConstant::DASHBOARD['product_delete']);
+                Route::get('/', [Product::class, 'list'])->name(RouteConstant::DASHBOARD['product_list']);
+                Route::get('create', [Product::class, 'viewCreate'])->name(RouteConstant::DASHBOARD['product_create']);
+                Route::post('create', [Product::class, 'create']);
+                Route::get('update', [Product::class, 'viewupdate'])->name(RouteConstant::DASHBOARD['product_update']);
+                Route::post('update', [Product::class, 'update']);
+                Route::get('delete', [Product::class, 'delete'])->name(RouteConstant::DASHBOARD['product_delete']);
             });
         });
     });
 
     Route::controller(Home::class)->group(function () {
         Route::get('/', 'index')->name('home');
+        Route::get('/products', 'listProducts')->name('products');
+    });
+    Route::prefix('/')->group(function () {
+        Route::get('/', [Home::class, 'index'])->name(RouteConstant::HOMEPAGE);
+        Route::get('/home', [Home::class, 'index'])->name(RouteConstant::HOMEPAGE);
+        Route::get('/products', [Product::class, 'listProduct'])->name(RouteConstant::HOME_LIST_PRODUCT);
+        Route::get('/product/{id}', [Product::class, 'productDetail'])->name(RouteConstant::HOME_PRODUCT_DETAIL);
+        Route::get('/cart', [Cart::class, 'listCart'])->name(RouteConstant::HOME_LIST_CART);
     });
 });

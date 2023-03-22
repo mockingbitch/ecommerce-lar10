@@ -81,7 +81,7 @@
                                     <div class="product">
                                         <a href="">
                                         <div class="product-img">
-                                            <img src="{{asset('uploads/product/'.$product->image)}}" alt="">
+                                            <img src="{{asset('upload/images/products/'.$product->image)}}" alt="">
                                             <div class="product-label">
                                                 <!--													<span class="sale">-30%</span>-->
                                                 <span class="new">NEW</span>
@@ -244,7 +244,7 @@
                                 <div class="product">
                                     <a href="">
                                     <div class="product-img">
-                                        <img src="{{asset('uploads/product/' . $product->image)}}" alt="">
+                                        <img src="{{asset('upload/images/products/' . $product->image)}}" alt="">
                                         <div class="product-label">
                                             <span class="sale">-30%</span>
                                             <span class="new">NEW</span>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Create\ProductRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Repositories\Contracts\Interface\ProductRepositoryInterface;
 use App\Repositories\Contracts\Interface\CategoryRepositoryInterface;
@@ -182,25 +182,24 @@ class ProductController extends Controller
     }
 
     /**
-     * @param integer|null $productId
      * @param ProductRequest $request
      *
      * @return RedirectResponse
      */
-    public function update(?int $productId, ProductRequest $request) : RedirectResponse
+    public function update(ProductRequest $request) : RedirectResponse
     {
         $data        = $request->toArray();
         $category_id = $request->category_id;
 
         if (! $this->categoryRepository->find($category_id)) :
             return redirect()
-                ->route(RouteConstant::DASHBOARD['product_update'], ['id' => $productId])
+                ->route(RouteConstant::DASHBOARD['product_update'], ['id' => $request->id])
                 ->with([
                     'errMsg' => ProductConstant::ERR_MSG_CATEGORY_NOT_FOUND
                 ]);
         endif;
 
-        if (! $product = $this->productRepository->find($productId)) :
+        if (! $product = $this->productRepository->find($request->id)) :
             return redirect()
                 ->route(RouteConstant::DASHBOARD['product_list'])
                 ->with('msg', ProductConstant::ERR_MSG_NOT_FOUND);
@@ -212,7 +211,7 @@ class ProductController extends Controller
 
             if (null == $data['image'] || $data['image'] == '') :
                 return redirect()
-                    ->route(RouteConstant::DASHBOARD['product_update'], ['id' => $productId])
+                    ->route(RouteConstant::DASHBOARD['product_update'], ['id' => $request->id])
                     ->with([
                         'errMsg' => ProductConstant::ERR_MSG_CANT_PROCESS_IMAGE
                     ]);
@@ -221,18 +220,18 @@ class ProductController extends Controller
             $this->imageService->delete($product->image, 'products');
         endif;
 
-        if (! $this->productRepository->update($productId, $data)) :
+        if (! $this->productRepository->update($request->id, $data)) :
             return redirect()
-                ->route(RouteConstant::DASHBOARD['product_update'], ['id' => $productId])
+                ->route(RouteConstant::DASHBOARD['product_update'], ['id' => $request->id])
                 ->with([
                     'errMsg' => Constant::ERR_MSG['update_fail']
                 ]);
         endif;
 
         return redirect()
-            ->route(RouteConstant::DASHBOARD['product_update'], ['id' => $productId])
+            ->route(RouteConstant::DASHBOARD['product_update'], ['id' => $request->id])
             ->with([
-                'errMsg' => Constant::ERR_MSG['update_success']
+                'msg' => Constant::ERR_MSG['update_success']
             ]);
     }
 
@@ -250,5 +249,36 @@ class ProductController extends Controller
         endif;
 
         return true;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return View
+     */
+    public function listProduct(Request $request) : View
+    {
+        $listProduct = $this->productRepository->getListProduct($request);
+        $categories = $this->categoryRepository->getActive();
+
+        return view('home.pages.list_product', [
+            'listProduct' => $listProduct,
+            'categories' => $categories
+        ]);
+    }
+
+    public function productDetail(?int $id)
+    {
+        $product = $this->productRepository->find($id);
+        $related_products = $this->productRepository->getAll();
+
+        if (! $product || null === $product) :
+            return redirect()->back()->with('errMsg', trans('product_not_found'));
+        endif;
+
+        return view('home.pages.product_detail', [
+            'product' => $product,
+            'related_products' => $related_products
+        ]);
     }
 }

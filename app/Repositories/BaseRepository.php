@@ -27,7 +27,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
         );
     }
 
-    public function getAll() 
+    public function getAll()
     {
         return $this->model->all();
     }
@@ -73,11 +73,16 @@ abstract class BaseRepository implements BaseRepositoryInterface
     /**
      * @param string|null $key
      * @param string|null $value
-     * 
+     *
      * @return object|null
      */
     public function search(?string $key, ?string $value) : ?object
     {
         return $this->model->where($key, 'like', '%'.$value.'%')->get();
+    }
+
+    public function getActive()
+    {
+        return $this->model->where('status', 1)->get();
     }
 }

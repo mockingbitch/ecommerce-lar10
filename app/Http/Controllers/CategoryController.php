@@ -6,6 +6,7 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Repositories\Contracts\Interface\CategoryRepositoryInterface;
+use App\Http\Requests\Create\CategoryRequest;
 use App\Constants\CategoryConstant;
 use App\Constants\RouteConstant;
 use App\Constants\Constant;
@@ -54,11 +55,11 @@ class CategoryController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param CategoryRequest $request
      *
      * @return RedirectResponse
      */
-    public function create(Request $request) : RedirectResponse
+    public function create(CategoryRequest $request) : RedirectResponse
     {
         if (! $this->categoryRepository->create($request->toArray())) :
             return redirect()

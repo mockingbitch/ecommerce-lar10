@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Category;
+use App\Models\Brand;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,5 +32,23 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Schema::defaultStringLength(191);
+
+        view()->composer('layouts.homeLayout', function($view){
+            // $customer = Auth::guard('customer')->user();
+            $categories = Category::where('status', 1)->get();
+            $brands     = Brand::where('status', 1)->get();
+            // $carts = session()->get('cart');
+            // $cartQuantity = 0;
+            // if (isset($carts)){
+            //     $cartQuantity = count($carts);
+            // }
+            view()->share([
+                // 'cartQuantity'=>$cartQuantity,
+                // 'carts'=>$carts,
+                // 'customer' => $customer,
+                'categories' => $categories,
+                'brands' => $brands
+            ]);
+        });
     }
 }

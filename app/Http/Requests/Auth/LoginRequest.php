@@ -22,9 +22,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required',
-            'email2' => 'same:email',
-            // 'password' => 'required|min:6',
+            'email'     => 'required|email',
+            'password'  => 'required'
         ];
     }
 
@@ -36,7 +35,9 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-
+            'email.required'    => trans('validation.email_required'),
+            'email.email'       => trans('validation.email_email'),
+            'password.required' => trans('validation.password_required'),
         ];
     }
 }

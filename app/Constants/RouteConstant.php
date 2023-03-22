@@ -67,17 +67,7 @@ class RouteConstant
     public const HOME_ORDER_LIST        = 'home.order.list';
     public const HOME_SEARCH            = 'home.search';
 
-    public const HOME = [
-        'search'            => self::HOME_SEARCH,
-        'brand_list'        => self::HOME_BRAND_LIST,
-        'brand_detail'      => self::HOME_BRAND_DETAIL,
-        'order_products'    => self::HOME_ORDER_PRODUCTS,
-        'order_add'         => self::HOME_ORDER_ADD,
-        'order_update'      => self::HOME_ORDER_UPDATE,
-        'order_delete'      => self::HOME_ORDER_DELETE,
-        'order_submit'      => self::HOME_ORDER_SUBMIT,
-        'order_remove'      => self::HOME_ORDER_REMOVE,
-        'order_checkout'    => self::HOME_ORDER_CHECKOUT,
-        'order_list'        => self::HOME_ORDER_LIST,
-    ];
+    public const HOME_LIST_PRODUCT      = 'home.list.product';
+    public const HOME_LIST_CART         = 'home.list.cart';
+    public const HOME_PRODUCT_DETAIL    = 'home.product.detail';
 }
