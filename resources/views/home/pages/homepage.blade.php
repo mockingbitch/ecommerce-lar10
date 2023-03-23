@@ -1,3 +1,7 @@
+@php
+    use App\Constants\RouteConstant;
+@endphp
+
 @extends('layouts.homeLayout')
 @section('content')
 <div class="section">
@@ -79,14 +83,14 @@
                                 <!-- product -->
                                 @foreach($products as $product)
                                     <div class="product">
-                                        <a href="">
-                                        <div class="product-img">
-                                            <img src="{{asset('upload/images/products/'.$product->image)}}" alt="">
-                                            <div class="product-label">
-                                                <!--													<span class="sale">-30%</span>-->
-                                                <span class="new">NEW</span>
+                                        <a href="{{route(RouteConstant::HOME_PRODUCT_DETAIL, ['id' => $product->id])}}">
+                                            <div class="product-img">
+                                                <img src="{{asset('upload/images/products/' . $product->image)}}" alt="">
+                                                <div class="product-label">
+                                                    <!--													<span class="sale">-30%</span>-->
+                                                    <span class="new">NEW</span>
+                                                </div>
                                             </div>
-                                        </div>
                                         </a>
                                         <div class="product-body">
 

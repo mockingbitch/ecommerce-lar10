@@ -46,14 +46,14 @@ class ProductRequest extends FormRequest
             'name.max'                  => trans('validation.max', ['attribute' => trans('product_name'), 'value' => '100']),
             'name.string'               => trans('validation.string', ['attribute' => trans('product_name')]),
             'name.unique'               => trans('validation.unique', ['attribute' => trans('product_name')]),
-            'description.max'           => trans('validation.max', ['attribute' => trans('product_name')]),
+            'description.max'           => trans('validation.max', ['attribute' => trans('product_name'), 'value' => '255']),
             'description.string'        => trans('validation.string', ['attribute' => trans('product_name')]),
             'detail.required'           => trans('validation.required', ['attribute' => trans('product_name')]),
             'price.required'            => trans('validation.required', ['attribute' => trans('product_name')]),
-            'price.digits_between'      => trans('validation.digits_between', ['attribute' => trans('product_name')]),
+            'price.digits_between'      => trans('validation.digits_between', ['attribute' => trans('product_name'), 'min' => '1', 'max' => '99999999999999']),
             'price.numeric'             => trans('validation.numeric', ['attribute' => trans('product_name')]),
             'quantity.required'         => trans('validation.required', ['attribute' => trans('product_name')]),
-            'quantity.digits_between'   => trans('validation.digits', ['attribute' => trans('product_name')]),
+            'quantity.digits_between'   => trans('validation.digits', ['attribute' => trans('product_name'), 'min' => '1', 'max' => '999999']),
             'quantity.numeric'          => trans('validation.numeric', ['attribute' => trans('product_name')]),
             'category_id.required'      => trans('validation.required', ['attribute' => trans('product_name')]),
             'category_id.exists'        => trans('validation.exists', ['attribute' => trans('product_name')]),
@@ -61,7 +61,7 @@ class ProductRequest extends FormRequest
             'brand_id.exists'           => trans('validation.exists', ['attribute' => trans('product_name')]),
             'image.image'               => trans('validation.image', ['attribute' => trans('product_name')]),
             'image.mimes'               => trans('validation.mimes', ['attribute' => trans('product_name')]),
-            'image.max'                 => trans('validation.max', ['attribute' => trans('product_name')]),
+            'image.max'                 => trans('validation.max', ['attribute' => trans('product_name'), 'value' => '2048']),
             'status.required'           => trans('validation.required', ['attribute' => trans('product_name')])
         ];
     }

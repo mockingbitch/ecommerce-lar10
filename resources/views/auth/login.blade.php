@@ -26,8 +26,11 @@
         body {
             font-family: "Literata", sans-serif !important;
         }
-        .login100-form-title, .input100, .txt2 {
+        .login100-form-title, .input100, .txt2, .text-error{
             font-family: "Literata", sans-serif !important;
+        }
+        .text-error {
+            color: red;
         }
     </style>
 </head>
@@ -45,19 +48,15 @@
 					<span class="login100-form-title">
 						<h1>{{__('login')}}</h1>
 					</span>
-                @if(isset($msg))
-                    <span style="color: red;">{{$msg}}</span>
-                @endif
-
+                @if ($errors->has('email'))<p class="text-error">*{{$errors->first('email')}}</p>@endif
                 <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                    @if ($errors->has('email'))<p class="text-error">*{{$errors->first('email')}}</p>@endif
-                    <input class="input100" type="email" name="email" placeholder="{{__('email')}}">
+                    <input class="input100" type="text" name="email" placeholder="{{__('email')}}">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
                     </span>
                 </div>
-
+                @if ($errors->has('password'))<p class="text-error">*{{$errors->first('password')}}</p>@endif
                 <div class="wrap-input100 validate-input" data-validate = "Password is required">
                     <input class="input100" type="password" name="password" placeholder="{{__('password')}}">
                     <span class="focus-input100"></span>

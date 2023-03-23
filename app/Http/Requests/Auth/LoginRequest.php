@@ -35,9 +35,9 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required'    => trans('validation.email_required'),
-            'email.email'       => trans('validation.email_email'),
-            'password.required' => trans('validation.password_required'),
+            'email.required'    => trans('validation.required'),
+            'email.email'       => trans('validation.email'),
+            'password.required' => trans('validation.required'),
         ];
     }
 }

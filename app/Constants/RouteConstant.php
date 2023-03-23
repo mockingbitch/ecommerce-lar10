@@ -70,4 +70,5 @@ class RouteConstant
     public const HOME_LIST_PRODUCT      = 'home.list.product';
     public const HOME_LIST_CART         = 'home.list.cart';
     public const HOME_PRODUCT_DETAIL    = 'home.product.detail';
+    public const HOME_ADD_CART          = 'home.add.cart';
 }

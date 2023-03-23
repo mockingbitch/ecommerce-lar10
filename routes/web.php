@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController as Category;
 use App\Http\Controllers\BrandController as Brand;
 use App\Http\Controllers\ProductController as Product;
 use App\Http\Controllers\DashboardController as Dashboard;
+use App\Http\Controllers\CartController as Cart;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,5 +79,6 @@ Route::group(['middleware' => 'locale'], function() {
         Route::get('/products', [Product::class, 'listProduct'])->name(RouteConstant::HOME_LIST_PRODUCT);
         Route::get('/product/{id}', [Product::class, 'productDetail'])->name(RouteConstant::HOME_PRODUCT_DETAIL);
         Route::get('/cart', [Cart::class, 'listCart'])->name(RouteConstant::HOME_LIST_CART);
+        Route::get('/add-cart', [Cart::class, 'create'])->name(RouteConstant::HOME_ADD_CART);
     });
 });

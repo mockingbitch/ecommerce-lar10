@@ -320,13 +320,14 @@
 
 <script>
     function addCart(id){
-        $.get('' ,{"id":id},function(data){
+        $.get('{{route(RouteConstant::HOME_ADD_CART)}}', {"id":id}, function(data) {
+            console.log(data);
             $("#listcart").load("{{route('home')}} .cart");
             swal("...", "Đã thêm vào giỏ hàng!", "success");
         });
     }
     function removeCart(id){
-        $.get("",{"id":id},function(data){
+        $.get("", {"id":id}, function(data) {
             $("#list-cart").load(" .cart-change");
             $("#listcart").load("{{route('home')}} .cart");
             $("#sub").load(" .sub-change");
