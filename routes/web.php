@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController as Home;
 use App\Http\Controllers\CategoryController as Category;
 use App\Http\Controllers\BrandController as Brand;
 use App\Http\Controllers\ProductController as Product;
+use App\Http\Controllers\ProductModelController as ProductModel;
 use App\Http\Controllers\DashboardController as Dashboard;
 use App\Http\Controllers\CartController as Cart;
 
@@ -65,6 +66,16 @@ Route::group(['middleware' => 'locale'], function() {
                 Route::get('update', [Product::class, 'viewupdate'])->name(RouteConstant::DASHBOARD['product_update']);
                 Route::post('update', [Product::class, 'update']);
                 Route::get('delete', [Product::class, 'delete'])->name(RouteConstant::DASHBOARD['product_delete']);
+            });
+
+             //PRODUCT MODEL
+            Route::prefix('product-model')->group(function () {
+                Route::get('/', [ProductModel::class, 'list'])->name(RouteConstant::DASHBOARD['product_model_list']);
+                Route::get('create', [ProductModel::class, 'viewCreate'])->name(RouteConstant::DASHBOARD['product_model_create']);
+                Route::post('create', [ProductModel::class, 'create']);
+                Route::get('update', [ProductModel::class, 'viewupdate'])->name(RouteConstant::DASHBOARD['product_model_update']);
+                Route::post('update', [ProductModel::class, 'update']);
+                Route::get('delete', [ProductModel::class, 'delete'])->name(RouteConstant::DASHBOARD['product_model_delete']);
             });
         });
     });

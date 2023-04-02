@@ -36,7 +36,7 @@ services:
         networks:
             - app-network
     mysql:
-        # platform: linux/x86_64
+        platform: linux/x86_64
         # image: mysql:5.7
         build:
             context: ./docker/images

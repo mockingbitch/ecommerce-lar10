@@ -13,22 +13,18 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'description',
+        'product_model_id',
         'price',
-        'category_id',
-        'brand_id',
         'content',
+        'color',
+        'ram',
         'image',
-        'quantity'
+        'quantity',
+        'status'
     ];
 
-    public function category()
+    public function product_model()
     {
-        return $this->belongsTo(\App\Models\Category::class, 'category_id');
-    }
-
-    public function brand()
-    {
-        return $this->belongsTo(\App\Models\Brand::class, 'brand_id');
+        return $this->belongsTo(\App\Models\ProductModel::class, 'product_model_id');
     }
 }
