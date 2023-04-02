@@ -31,6 +31,7 @@
     "page_category": "Category",
     "page_brand": "Brand",
     "page_product": "Product",
+    "page_product_model": "Product Model",
     "page_order": "Order",
     "page_users": "Users",
     "about_us": "About Us",
@@ -70,5 +71,10 @@
     "detail": "Detail",
     "quantity": "Quantity",
     "display": "Display",
-    "hide": "Hide"
+    "hide": "Hide",
+    "product_model_name": "Product Model Name",
+    "product_model_list": "Product Model List",
+    "product_model_create": "Product Model Create",
+    "product_model_update": "Product Model Update",
+    "product_model_description": "Product Model Description"
 }

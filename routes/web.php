@@ -6,8 +6,9 @@ use App\Http\Controllers\AuthController as Auth;
 use App\Http\Controllers\HomeController as Home;
 use App\Http\Controllers\CategoryController as Category;
 use App\Http\Controllers\BrandController as Brand;
-use App\Http\Controllers\ProductController as Product;
+// use App\Http\Controllers\ProductController as Product;
 use App\Http\Controllers\ProductModelController as ProductModel;
+use App\Http\Controllers\StorageController as Storage;
 use App\Http\Controllers\DashboardController as Dashboard;
 use App\Http\Controllers\CartController as Cart;
 
@@ -59,14 +60,14 @@ Route::group(['middleware' => 'locale'], function() {
             });
 
             //PRODUCT
-            Route::prefix('product')->group(function () {
-                Route::get('/', [Product::class, 'list'])->name(RouteConstant::DASHBOARD['product_list']);
-                Route::get('create', [Product::class, 'viewCreate'])->name(RouteConstant::DASHBOARD['product_create']);
-                Route::post('create', [Product::class, 'create']);
-                Route::get('update', [Product::class, 'viewupdate'])->name(RouteConstant::DASHBOARD['product_update']);
-                Route::post('update', [Product::class, 'update']);
-                Route::get('delete', [Product::class, 'delete'])->name(RouteConstant::DASHBOARD['product_delete']);
-            });
+            // Route::prefix('product')->group(function () {
+            //     Route::get('/', [Product::class, 'list'])->name(RouteConstant::DASHBOARD['product_list']);
+            //     Route::get('create', [Product::class, 'viewCreate'])->name(RouteConstant::DASHBOARD['product_create']);
+            //     Route::post('create', [Product::class, 'create']);
+            //     Route::get('update', [Product::class, 'viewupdate'])->name(RouteConstant::DASHBOARD['product_update']);
+            //     Route::post('update', [Product::class, 'update']);
+            //     Route::get('delete', [Product::class, 'delete'])->name(RouteConstant::DASHBOARD['product_delete']);
+            // });
 
              //PRODUCT MODEL
             Route::prefix('product-model')->group(function () {
@@ -76,6 +77,16 @@ Route::group(['middleware' => 'locale'], function() {
                 Route::get('update', [ProductModel::class, 'viewupdate'])->name(RouteConstant::DASHBOARD['product_model_update']);
                 Route::post('update', [ProductModel::class, 'update']);
                 Route::get('delete', [ProductModel::class, 'delete'])->name(RouteConstant::DASHBOARD['product_model_delete']);
+
+                //STORAGE
+                Route::prefix('storage')->group(function () {
+                    Route::get('/{model}', [Storage::class, 'list'])->name(RouteConstant::DASHBOARD['storage_list']);
+                    Route::get('create/{model}', [Storage::class, 'viewCreate'])->name(RouteConstant::DASHBOARD['storage_create']);
+                    Route::post('create/{model}', [Storage::class, 'create']);
+                    Route::get('update/{model}', [Storage::class, 'viewupdate'])->name(RouteConstant::DASHBOARD['storage_update']);
+                    Route::post('update/{model}', [Storage::class, 'update']);
+                    Route::get('delete/{model}', [Storage::class, 'delete'])->name(RouteConstant::DASHBOARD['storage_delete']);
+                });
             });
         });
     });

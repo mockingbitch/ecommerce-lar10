@@ -4,31 +4,22 @@ use App\Constants\RouteConstant;
 
 @extends('layouts.dashboardLayout')
 @section('content')
-<h2>{{__('product_create')}}</h2>
+<script src="{{asset('dashboard/assets/js/ckeditor.js')}}"></script>
+<h2>{{__('product_model_create')}}</h2>
 <div class="card mb-4">
     <form class="mx-4 pt-4" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group mt-4">
-            <label for="inputName">{{__('product_name')}} @if ($errors->has('name'))<p class="text-error">*{{$errors->first('name')}}</p>@endif</label>
+            <label for="inputName">{{__('product_model_name')}} @if ($errors->has('name'))<p class="text-error">*{{$errors->first('name')}}</p>@endif</label>
             <input type="text" name="name" class="form-control" id="inputName" aria-describedby="nameHelp" value="{{Request::old('name')}}">
         </div>
         <div class="form-group mt-4">
-            <label for="inputDescription">{{__('product_description')}} @if ($errors->has('description'))<p class="text-error">*{{$errors->first('description')}}</p>@endif</label>
+            <label for="inputDescription">{{__('product_model_description')}} @if ($errors->has('description'))<p class="text-error">*{{$errors->first('description')}}</p>@endif</label>
             <input type="text" name="description" class="form-control" id="inputDescription" aria-describedby="nameHelp" value={{Request::old('description')}}>
         </div>
         <div class="form-group mt-4">
-            <label for="inputDetail">{{__('detail')}} @if ($errors->has('detail'))<p class="text-error">*{{$errors->first('detail')}}</p>@endif</label>
-            <textarea type="text" name="detail" class="form-control" id="inputDetail" aria-describedby="nameHelp">{{Request::old('detail')}}</textarea>
-        </div>
-        <div class="row">
-            <div class="form-group mt-4 col-6">
-                <label for="inputPrice">{{__('price')}} @if ($errors->has('price'))<p class="text-error">*{{$errors->first('price')}}</p>@endif</label>
-                <input type="text" name="price" class="form-control" id="inputPrice" aria-describedby="nameHelp" value="{{Request::old('price')}}">
-            </div>
-            <div class="form-group mt-4 col-6">
-                <label for="inputQuantity">{{__('quantity')}} @if ($errors->has('quantity'))<p class="text-error">*{{$errors->first('quantity')}}</p>@endif</label>
-                <input type="text" name="quantity" class="form-control" id="inputQuantity" aria-describedby="nameHelp" value="{{Request::old('quantity')}}">
-            </div>
+            <label for="inputContent">{{__('content')}} @if ($errors->has('content'))<p class="text-error">*{{$errors->first('content')}}</p>@endif</label>
+            <textarea type="text" name="content" class="form-control" id="inputContent" aria-describedby="nameHelp">{{Request::old('content')}}</textarea>
         </div>
         <div class="row">
             <div class="form-group mt-4 col-6">
@@ -62,10 +53,17 @@ use App\Constants\RouteConstant;
             </div>
         </div>
 
-        <a class="btn btn-secondary" href="{{route(RouteConstant::DASHBOARD['product_list'])}}">{{__('back')}}</a>
+        <a class="btn btn-secondary" href="{{route(RouteConstant::DASHBOARD['product_model_list'])}}">{{__('back')}}</a>
         <button type="submit" class="btn btn-primary">{{__('create')}}</button>
     </form>
 </div>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#inputContent' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 @if (Session::has('msg'))
     <script>
         swal({title: "{{__('success')}}",text: "{{Session::get('msg')}}", icon: "success",button: "{{__('close')}}",});

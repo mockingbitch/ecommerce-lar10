@@ -8,8 +8,8 @@ use App\Constants\RouteConstant;
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card mb-4">
             <div class="card-header pb-0">
-                <h3 align="center" style="text-shadow: 1px 1px 2px grey;">{{__('product_list')}}</h3>
-                <a href="{{route(RouteConstant::DASHBOARD['product_create'])}}">
+                <h3 align="center" style="text-shadow: 1px 1px 2px grey;">{{__('product_model_list')}}</h3>
+                <a href="{{route(RouteConstant::DASHBOARD['product_model_create'])}}">
                     <button class="btn btn-primary" style="float: right;">{{__('create')}}</button>
                 </a>
             </div>
@@ -19,7 +19,7 @@ use App\Constants\RouteConstant;
                     <table class="table align-items-center mb-0">
                         <thead>
                         <tr>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-9"><b>{{__('product_name')}}</b></th>
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-9"><b>{{__('product_model_name')}}</b></th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-9 ps-2"><b>{{__('price')}}</b></th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><b>{{__('category_name')}}</b></th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><b>{{__('brand_name')}}</b></th>
@@ -34,7 +34,7 @@ use App\Constants\RouteConstant;
                             <td>
                                 <div class="px-2 py-1">
                                     <div class="flex-column justify-content-center">
-                                        <h6 class="mb-0">{{$item->name}}</h6>
+                                        <h6 class="mb-0">{{mb_strimwidth($item->name, 0, 50, "...");}} </h6>
                                     </div>
                                 </div>
                             </td>
@@ -44,14 +44,14 @@ use App\Constants\RouteConstant;
                                 </p>
                             </td>
                             <td style="text-align: center">
-                                <a href="{{route(RouteConstant::DASHBOARD['product_list'])}}?category={{$item->category_id}}">
+                                <a href="{{route(RouteConstant::DASHBOARD['product_model_list'])}}?category={{$item->category_id}}">
                                     <p class="text-sm font-weight-bold mb-0">
                                         {{$item->category->name}}
                                     </p>
                                 </a>
                             </td>
                             <td style="text-align: center">
-                                <a href="{{route(RouteConstant::DASHBOARD['product_list'])}}?category={{$item->brand_id}}">
+                                <a href="{{route(RouteConstant::DASHBOARD['product_model_list'])}}?brand={{$item->brand_id}}">
                                     <p class="text-sm font-weight-bold mb-0">
                                         {{$item->brand->name}}
                                     </p>
@@ -94,7 +94,7 @@ use App\Constants\RouteConstant;
 </div>
 <script>
     function handleClickRow(id) {
-        var url = '{{ route("dashboard.product.update") }}' + '?id=' + id;
+        var url = '{{ route("dashboard.product.model.update") }}' + '?id=' + id;
         location.replace(url);
     }
 </script>

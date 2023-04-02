@@ -116,13 +116,13 @@ class ProductModelController extends Controller
 
             if  (! $categories || null === $categories || count($categories) == 0 || null == $productModel) :
                 return redirect()
-                    ->route(RouteConstant::DASHBOARD['product_list'])
+                    ->route(RouteConstant::DASHBOARD['product_model_list'])
                     ->with([
                         'errMsg' => ProductModelConstant::ERR_MSG_NOT_FOUND
                     ]);
             endif;
 
-            return view('dashboard.update.product', [
+            return view('dashboard.update.product-model', [
                 'productModel'  => $productModel,
                 'categories'    => $categories,
                 'brands'        => $brands,

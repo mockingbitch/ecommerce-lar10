@@ -7,63 +7,21 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 SET NAMES utf8mb4;
 
-DROP TABLE IF EXISTS `brands`;
-CREATE TABLE `brands` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '0 > DEACTIVE, 1 > ACTIVE',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `brands_name_unique` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 INSERT INTO `brands` (`id`, `name`, `description`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1,	'Dell',	NULL,	'1',	'2023-04-02 09:14:32',	'2023-04-02 09:14:32',	NULL),
 (2,	'Asus',	NULL,	'1',	'2023-04-02 09:14:41',	'2023-04-02 09:14:41',	NULL),
 (3,	'Samsung',	NULL,	'1',	'2023-04-02 09:14:50',	'2023-04-02 09:14:50',	NULL),
-(4,	'Sony',	NULL,	'1',	'2023-04-02 09:14:58',	'2023-04-02 09:14:58',	NULL);
-
-DROP TABLE IF EXISTS `categories`;
-CREATE TABLE `categories` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '0 > DEACTIVE, 1 > ACTIVE',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `categories_name_unique` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(4,	'Sony',	NULL,	'1',	'2023-04-02 09:14:58',	'2023-04-02 09:14:58',	NULL),
+(5,	'MSI',	NULL,	'1',	'2023-04-02 15:17:12',	'2023-04-02 15:17:12',	NULL),
+(6,	'Acer',	NULL,	'1',	'2023-04-02 15:17:24',	'2023-04-02 15:17:24',	NULL),
+(7,	'Macbook',	'Apple',	'1',	'2023-04-02 15:17:52',	'2023-04-02 15:17:52',	NULL);
 
 INSERT INTO `categories` (`id`, `name`, `description`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1,	'Máy tính',	'máy tính',	'1',	'2023-04-02 09:14:07',	'2023-04-02 09:14:07',	NULL),
-(2,	'Phụ kiện',	'phụ kiện',	'1',	'2023-04-02 09:14:21',	'2023-04-02 09:14:21',	NULL);
+(2,	'Phụ kiện',	'phụ kiện',	'1',	'2023-04-02 09:14:21',	'2023-04-02 09:14:21',	NULL),
+(3,	'Màn hình',	NULL,	'1',	'2023-04-02 15:16:28',	'2023-04-02 15:16:28',	NULL),
+(4,	'PC',	NULL,	'1',	'2023-04-02 15:16:33',	'2023-04-02 15:16:33',	NULL);
 
-DROP TABLE IF EXISTS `failed_jobs`;
-CREATE TABLE `failed_jobs` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-DROP TABLE IF EXISTS `migrations`;
-CREATE TABLE `migrations` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1,	'2014_10_12_000000_create_users_table',	1),
@@ -76,160 +34,26 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8,	'2021_11_19_172112_create_products_table',	1),
 (9,	'2021_11_19_173153_create_orders_table',	1),
 (10,	'2021_11_19_173556_create_orderdetails_table',	1),
-(11,	'2023_03_14_093701_create_stocks_table',	1);
-
-DROP TABLE IF EXISTS `orderdetails`;
-CREATE TABLE `orderdetails` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `order_id` bigint(20) unsigned NOT NULL,
-  `product_id` bigint(20) unsigned NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `price` bigint(20) DEFAULT NULL,
-  `total` bigint(20) DEFAULT NULL,
-  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `orderdetails_order_id_foreign` (`order_id`),
-  KEY `orderdetails_product_id_foreign` (`product_id`),
-  CONSTRAINT `orderdetails_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-  CONSTRAINT `orderdetails_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(11,	'2023_03_14_093701_create_stocks_table',	1),
+(12,	'2021_11_19_172113_create_storages_table',	2);
 
 
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) unsigned NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `note` text COLLATE utf8mb4_unicode_ci,
-  `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `subTotal` bigint(20) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `orders_user_id_foreign` (`user_id`),
-  CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-DROP TABLE IF EXISTS `password_reset_tokens`;
-CREATE TABLE `password_reset_tokens` (
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-DROP TABLE IF EXISTS `personal_access_tokens`;
-CREATE TABLE `personal_access_tokens` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `tokenable_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint(20) unsigned NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci,
-  `last_used_at` timestamp NULL DEFAULT NULL,
-  `expires_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
-  KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `product_models` (`id`, `name`, `category_id`, `brand_id`, `description`, `content`, `image`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(6,	'Laptop Asus TUF Gaming FX506LHB-HN188W i5 10300H/8GB/512GB/15.6\"FHD/GTX 1650 4GB/Win10',	1,	2,	'15.6 inch, 1920 x 1080 Pixels, IPS, 144 Hz, Anti-glare LED-backlit, Intel, Core i5, 10300H',	'<h2>Đánh giá chi tiết Asus TUF Gaming FX506LHB-HN188W i5 10300H</h2><p><strong>Asus TUF Gaming F15 FX506LHB-HN188W là chiếc </strong><a href=\"https://fptshop.com.vn/may-tinh-xach-tay/gaming-do-hoa\"><strong>laptop gaming giá rẻ</strong></a><strong> với thiết kế tuyệt đẹp, phong cách chuẩn game thủ và cấu hình mạnh mẽ cho cả học tập, công việc cũng như chơi game. Bên cạnh đó là độ bền chuẩn quân đội đã làm nên tên tuổi của dòng TUF.</strong></p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/ASUS-TUF-Gaming-F15-2021-black-fpt-3.jpg\" alt=\"Asus TUF Gaming F15 FX506LHB-HN188W (Ảnh 1)\"></figure><h3><strong>Chơi game mượt mà trên màn hình 144Hz</strong></h3><p>Màn hình <a href=\"https://fptshop.com.vn/may-tinh-xach-tay/asus-tuf-gaming-fx506lhb-hn188w-i5-10300h\">ASUS&nbsp;TUF F15</a> được chế tác viền mỏng tối đa, mang đến những hình ảnh tuyệt đẹp trên tấm nền 15,6 inch, độ phân giải Full HD. Đặc biệt, đây còn là màn hình có tốc độ khung hình vượt trội 144Hz. Các tựa game sẽ được tái hiện một cách mượt mà, tốc độ khung hình nhanh và giảm thiểu hiện tượng xé hình. Hơn thế nữa, bạn còn có thể kết nối với hai màn hình bên ngoài cùng lúc, bao gồm một màn hình để làm việc qua cổng USB 3.2 gen 2 Type-C hỗ trợ DisplayPort 1.4 và một màn hình lớn để chơi game, xem phim 4K qua cổng HDMI 2.0b.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/ASUS-TUF-Gaming-F15-2021-black-fpt-1.jpg\" alt=\"Asus TUF Gaming F15 FX506LHB-HN188W (Ảnh 2)\"></figure><h3><strong>Vi xử lý mạnh mẽ cho cả chơi game và làm việc</strong></h3><p>Asus TUF Gaming F15 FX506LHB-HN188W mang trên mình sức mạnh của bộ vi xử lý Intel thế hệ thứ 10. Con chip Intel Core i5 10300H với 4 lõi 8 luồng và tốc độ tối đa lên tới 4.50GHz cho hiệu năng đáng tin cậy, dù là bạn chơi game, phát trực tiếp hay làm việc. Đi kèm với đó là 512GB SSD NVMe PCIe, 8GB RAM DDR4 và khả năng nâng cấp dễ dàng, để bạn có được hiệu năng đúng như ý muốn.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/ASUS-TUF-Gaming-F15-2021-black-fpt-6.jpg\" alt=\"Asus TUF Gaming F15 FX506LHB-HN188W (Ảnh 3)\"></figure><h3><strong>Card đồ họa quốc dân GTX 1650</strong></h3><p>Card đồ họa Asus TUF Gaming F15 FX506LHB-HN188W sử dụng là NVIDIA GeForce GTX 1650. Đây là <a href=\"https://fptshop.com.vn/linh-kien/vga\">card đồ họa</a> với kiến trúc Turing danh tiếng, giúp bạn có thể chơi tốt mọi game eSports và sẵn sàng cho các tựa game bom tấn AAA. Công nghệ dò tia theo thời gian thực trong game, trí tuệ nhân tạo AI sẽ mang đến cho bạn trải nghiệm game cực đỉnh.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/ASUS-TUF-Gaming-F15-2021-black-fpt-10.jpg\" alt=\"Asus TUF Gaming F15 FX506LHB-HN188W (Ảnh 4)\"></figure><h3><strong>Thể hiện khí chất game thủ cực ngầu</strong></h3><p>Khí chất game thủ được toát lên ngay khi bạn nhìn vào Asus TUF Gaming F15 FX506LHB-HN188W. Phiên bản màu Đen Graphite Black cực ngầu với màu sắc chủ đạo là đen tuyền cổ điển nhưng không hề nhàm chán nhờ họa tiết phay xước cùng những hình khối phá cách. Chất lượng hoàn thiện cao và cách bố trí họa tiết thông minh giúp Asus&nbsp;TUF F15 Gaming có vẻ đẹp riêng biệt khi đặt cạnh các đối thủ. Đồng thời máy cũng rất di động với kích thước tổng thể gọn gàng và trọng lượng chỉ 2,3kg.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/ASUS-TUF-Gaming-F15-2021-black-fpt-9.jpg\" alt=\"Asus TUF Gaming F15 FX506LHB-HN188W (Ảnh 5)\"></figure><h3><strong>Âm thanh sống động, chân thực</strong></h3><p>Với việc sở hữu hai loa nâng cấp và 4 âm thanh đầu ra, Asus TUF Gaming F15 FX506LHB-HN188W cho âm lượng lớn gấp 1,8 lần và âm bass trầm hơn 2,7 lần so với thế hệ trước. Bạn sẽ được trải nghiệm âm thanh vòm ảo 7.1 nhờ công nghệ DTS:X, mang đến chất lượng âm thanh chuẩn phòng thu khi sử dụng tai nghe Stereo. Trong những trận chiến game hiện đại, âm thanh cũng đóng vai trò quan trọng, vì thế âm thanh chất lượng của Asus&nbsp;TUF F15 cũng là một vũ khí dành cho riêng bạn. Trên laptop còn có 8 chế độ âm thanh khác nhau để bạn có được trải nghiệm nghe đúng như ý thích với mỗi hoạt động nghe nhạc, xem phim hay chơi game.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/ASUS-TUF-Gaming-F15-2021-black-fpt-11.jpg\" alt=\"Asus TUF Gaming F15 FX506LHB-HN188W (Ảnh 6)\"></figure><h3><strong>Cơ chế tản nhiệt thông minh</strong></h3><p>Hệ thống tản nhiệt cao cấp bao gồm nhiều ống tản nhiệt và 3 ống dẫn nhiệt giúp Asus&nbsp;TUF F15 có khả năng <a href=\"https://fptshop.com.vn/linh-kien/tan-nhiet\">tản nhiệt</a> nhanh chóng. Thiết kế làm mát tự làm sạch thông minh đảm bảo hệ thống tản nhiệt hoạt động hiệu quả và lâu dài. Nhờ vậy bạn luôn có được hiệu năng ổn định trên Asus TUF Gaming F15 FX506LHB&nbsp;để tự tin giải trí với những trận chiến Game hấp dẫn.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/ASUS-TUF-Gaming-F15-2021-black-fpt-15.jpg\" alt=\"Asus TUF Gaming F15 FX506LHB-HN188W (Ảnh 7)\"></figure><h3><strong>Chứng nhận độ bền chuẩn quân đội</strong></h3><p>Những chiếc laptop <a href=\"https://fptshop.com.vn/may-tinh-xach-tay/asus-tuf-gaming\">TUF Gaming</a> luôn nổi tiếng với độ bền xuất sắc. Asus TUF Gaming F15 FX506LHB&nbsp;đã vượt qua bài thử nghiệm độ bền chuẩn quân đội MIL-STD-810H. Các thử nghiệm như thả rơi, chống rung, nhiệt độ cao, nhiệt độ thấp hay độ ẩm đều đã được vượt qua trên chiếc TUF Gaming F15, để khi đến tay người tiêu dùng, đó sẽ là một chiếc laptop gaming vô cùng bền vững.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/ASUS-TUF-Gaming-F15-2021-black-fpt-12.jpg\" alt=\"Asus TUF Gaming F15 FX506LHB-HN188W (Ảnh 8)\"></figure><h3><strong>Thao tác chuẩn xác trên bàn phím gaming</strong></h3><p>Asus TUF Gaming F15 FX506LHB&nbsp;trang bị bàn phím tương tự <a href=\"https://fptshop.com.vn/may-tinh-de-ban\">máy tính để bàn</a>, tốt nhất cho hoạt động chơi game. Tất nhiên bạn sẽ có đèn nền RGB đồng bộ và nhiều chế độ khác nhau để tha hồ thể hiện kỹ năng một cách “cool ngầu” hơn. Công nghệ Overstroke kích hoạt vị trí nhận lệnh cao hơn trên phím bấm, mang tới tốc độ phản hồi nhanh hơn. Tất nhiên không thể không nhắc đến độ bền của một sản phẩm TUF khi bàn phím ASUS TUF Gaming F15 có tuổi thọ tới 20 triệu lần nhấn.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/ASUS-TUF-Gaming-F15-2021-black-fpt-4.jpg\" alt=\"Asus TUF Gaming F15 FX506LHB-HN188W (Ảnh 9)\"></figure>',	'1680449223_asu.webp',	'1',	'2023-04-02 15:27:03',	'2023-04-02 15:27:03',	NULL),
+(7,	'Laptop MSI Gaming GF63 Thin 11SC-1090VN i5 11400H/8GB/512GB/15.6\"FHD/GeForce GTX 1650 4GB/Win11',	1,	5,	'15.6 inch, 1920 x 1080 Pixels, IPS, 144 Hz, IPS FHD, Intel, Core i5, 11400H',	'<h2>Đánh giá chi tiết MSI Gaming GF63 Thin 11SC-1090VN i5 11400H</h2><p><strong>Trong tầm giá rẻ đến bất ngờ, MSI Gaming GF63 Thin 11SC-1090VN là sự lựa chọn tuyệt vời cho game thủ, đặc biệt những bạn học sinh, sinh viên với cấu hình xuất sắc từ bộ vi xử lý Intel Core i5 11400H và GPU RTX 1650. Hơn nữa, nhờ thiết kế mỏng nhẹ, bạn có thể mang laptop đi bất cứ đâu một cách dễ dàng.</strong></p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/msi-gf63-thin-fpt-2.jpg\" alt=\"MSI GF63 Thin 11SC-1090VN (ảnh 1)\"></figure><h3><strong>Cấu hình lý tưởng cho cả chơi game, học tập và làm việc</strong></h3><p>MSI GF63 Thin 11SC 1090VN được trang bị bộ vi xử lý Intel Core i5 11400H, con chip cực mạnh thuộc thế hệ Intel thứ 11 Tiger Lake, cho hiệu suất mạnh hơn tới 40% so với thế hệ trước. Bộ vi xử lý này được sản xuất trên tiến trình 10nm SuperFin hiện đại, sở hữu 6 nhân 12 luồng, tốc độ tối đa 4.50GHz, 12MB bộ nhớ đệm, TDP có thể đạt 45W. Với sức mạnh này, không chỉ chơi game mà bạn còn có thể làm việc hiệu quả, tăng cường năng suất.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/msi-gf63-thin-fpt-4.jpg\" alt=\"MSI GF63 Thin 11SC-1090VN (ảnh 2)\"></figure><h3><strong>Chơi game tốt ở thiết lập Full HD</strong></h3><p>MSI GF63 11SC sử dụng card đồ họa NVIDIA GeForce GTX 1650 4GB, đây được xem là “GPU quốc dân” khi được các game thủ đánh giá rất cao nhờ giá thành rẻ, hiệu năng tốt và tiết kiệm năng lượng. Được xây dựng trên kiến trúc Turing danh tiếng, GTX 1650 đáp ứng tốt các tựa game phổ biến, đặc biệt là những game Esports ở thiết lập đồ họa Full HD. Bạn có thể chơi game mượt mà, chỉnh sửa ảnh, biên tập video, làm việc đồ họa hiệu quả trên chiếc laptop MSI GF63 Thin.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/msi-gf63-thin-fpt-11.jpg\" alt=\"MSI GF63 Thin 11SC-1090VN (ảnh 3)\"></figure><h3><strong>Hoạt động nhanh hơn với SSD 512GB</strong></h3><p>Với ổ cứng SSD 512GB đi kèm, MSI GF63 11SC có tốc độ khởi động máy và vào game cực nhanh. Mọi thứ đều diễn ra nhanh chóng và không để bạn phải chờ đợi. Ngoài ra, bạn còn có thể cắm thêm <a href=\"https://fptshop.com.vn/linh-kien/o-cung-hdd\">ổ cứng HDD</a> để lưu trữ nhiều hơn với chi phí tiết kiệm.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/msi-gf63-thin-fpt-1.jpg\" alt=\"MSI GF63 Thin 11SC-1090VN (ảnh 4)\"></figure><h3><strong>Chiếc laptop gaming mỏng nhẹ và thời trang</strong></h3><p>Laptop MSI GF63 11SC có thiết kế hiện đại và phong cách đặc trưng của dòng <a href=\"https://fptshop.com.vn/may-tinh-xach-tay/msi-gaming\">laptop chơi game MSI</a>. Toàn thân máy được làm từ lớp vỏ kim loại vừa bền vững, cứng cáp lại vừa rất nhẹ. MSI đã cải tiến để MSI GF63 mỏng nhẹ nhất có thể, nhưng vẫn đảm bảo được quá trình tản nhiệt hiệu quả. Máy có độ mỏng chưa đến 2,2cm và trọng lượng vỏn vẹn 1,86kg, những thông số rất tuyệt vời đối với một chiếc laptop chơi game.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/msi-gf63-thin-fpt-8.jpg\" alt=\"MSI GF63 Thin 11SC-1090VN (ảnh 5)\"></figure><p><br> </p>',	'1680449419_asu.webp',	'1',	'2023-04-02 15:30:19',	'2023-04-02 15:30:19',	NULL),
+(8,	'Laptop Lenovo IdeaPad Gaming 3 15IAH7 i5 12500H/16GB/512GB/15.6”FHD/GeForce RTX 3050 4GB/Win 11',	1,	4,	'15.6 inch, 1920 x 1080 Pixels, IPS, 120 Hz, 250 nits, IPS LCD LED Backlit, True Tone',	'<h2>Đánh giá chi tiết Lenovo Gaming IdeaPad 3 15IAH7 i5 12500H/82S900H2VN</h2><p><strong>Lenovo IdeaPad Gaming 3 15IAH7 là đại diện tiêu biểu của một chiếc laptop chơi game thế hệ mới với bộ vi xử lý Intel Gen 12 tối ưu cho gaming, card đồ họa RTX 30 series chuyên dụng và công nghệ làm mát mang tính cách mạng.</strong></p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/Lenovo-IdeaPad-Gaming-3-15ARH7-black-14.jpg\" alt=\"Lenovo IdeaPad Gaming 3 15IAH7 (ảnh 1)\"></figure><h3><strong>Tương thích với những trò chơi hiện đại</strong></h3><p><a href=\"https://fptshop.com.vn/may-tinh-xach-tay/lenovo-ideapad-gaming-3-15iah7-i5-12500h\">Lenovo IdeaPad Gaming 3 15IAH7</a> mang trên mình bộ vi xử lý Intel Core i5 12500H thuộc thế hệ thứ 12 Alder Lake mới nhất từ Intel, cho hiệu suất chơi game vượt trội, đồng thời mang đến sự linh hoạt khi chạy các ứng dụng nặng. Kiến trúc mới từ Intel tạo nên nhiều nhân nhiều luồng hơn, nhưng cũng rất đa dạng về tốc độ xung nhịp và cách sử dụng các nhân để xử lý khối lượng công việc phù hợp. Với 12 lõi 16 luồng, trong đó 4 nhân P tốc độ tối đa lên tới 4.50 GHz, Intel Core i5 12500H cho bạn thoải mái chơi game, sáng tạo, truyền phát trực tiếp và nhiều việc khác nữa mà không gặp bất cứ vấn đề gì.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/Lenovo-IdeaPad-Gaming-3-15ARH7-black-11.jpg\" alt=\"Lenovo IdeaPad Gaming 3 15IAH7 (ảnh 2)\"></figure><h3><strong>Hiệu suất tối ưu cho game thủ và người sáng tạo</strong></h3><p>Card đồ họa rời RTX 3050 trên IdeaPad Gaming 3i Gen 7 được xây dựng trên kiến trúc Ampere – thế hệ RTX thứ 2 của NVIDIA, mang đến tính năng theo dõi tia chân thực và các tính năng AI tiên tiến như NVIDIA DLSS. Kết quả là bạn sẽ được tận hưởng hình ảnh trong trò chơi tuyệt đẹp, hiệu ứng mãn nhãn và tốc độ khung hình ổn định. Với RTX 3050, <a href=\"https://fptshop.com.vn/may-tinh-xach-tay/gaming-do-hoa\">Lenovo IdeaPad</a> này&nbsp;sẽ chơi được các tựa game AAA ở thiết lập Full HD một cách mượt mà.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/Lenovo-IdeaPad-Gaming-3-15ARH7-black-17.jpg\" alt=\"Lenovo IdeaPad Gaming 3 15IAH7 (ảnh 3)\"></figure><h3><strong>Màn hình gaming mãn nhãn</strong></h3><p>Màn hình Lenovo IdeaPad Gaming 3 15IAH7 có kích thước 15,6 inch tiêu chuẩn, độ phân giải Full HD sắc nét, tấm nền IPS góc rộng và đặc biệt là tần số quét 120Hz, mang đến trải nghiệm chơi game mượt mà. Bạn có thể thưởng thức những tựa game thế giới mở với màu sắc sống động, hay “try hard” bằng các game fps đòi hỏi phải xử lý nhanh nhạy. Màn hình tốc độ cao mang đến cho bạn nhiều lợi thế, đồng thời trải nghiệm chơi game mượt mà hơn.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/Lenovo-IdeaPad-Gaming-3-15ARH7-black-2.jpg\" alt=\"Lenovo IdeaPad Gaming 3 15IAH7 (ảnh 5)\"></figure><h3><strong>Nhanh chóng, yên tĩnh và mát mẻ</strong></h3><p>Với tính năng làm mát Quad Vent, Lenovo IdeaPad Gaming 3 15IAH7 có khả năng tản nhiệt nhanh chóng, hoạt động êm ái, laptop luôn luôn mát mẻ giúp bạn chơi game ở hiệu suất cao nhất. Loạt tính năng tản nhiệt hàng đầu đều được tích hợp như hút gió bàn phím; buồng thông gió lớn hơn 20%; lưu lượng gió tăng 10% so với thế hệ trước tạo nên một trong những chiếc <a href=\"https://fptshop.com.vn/may-tinh-xach-tay/lenovo-legion-gaming\">laptop Lenovo Legion Gaming</a> mát nhất từ trước đến nay.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/Lenovo-IdeaPad-Gaming-3-15ARH7-black-18.jpg\" alt=\"Lenovo IdeaPad Gaming 3 15IAH7 (ảnh 6)\"></figure><h3><strong>Âm thanh sống động trong từng tựa game</strong></h3><p>Công nghệ âm thanh Nahimic sẽ cải thiện đáng kể trải nghiệm chơi game của bạn với việc phát ra âm thanh nổi 3D sống động cũng như hỗ trợ các tính năng hấp dẫn cho game thủ. Bạn sẽ được sống trong thế giới gaming đích thực với âm thanh trung thực, ngoài ra việc giao tiếp với những người chơi khác cũng hết sức rõ ràng.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/Lenovo-IdeaPad-Gaming-3-15ARH7-black-13.jpg\" alt=\"Lenovo IdeaPad Gaming 3 15IAH7 (ảnh 7)\"></figure><h3><strong>Thiết kế mới mỏng nhẹ và thanh thoát hơn</strong></h3><p>Lenovo IdeaPad Gaming 3i Gen 7 được thiết kế đơn giản với logo Lenovo được làm rất gọn và màu đen xám Onyx Grey cực ngầu. Tông màu đen xám đẹp lạnh lùng và đèn LED xanh giúp vẻ ngoài IdeaPad Gaming 3 có phong cách riêng biệt, vừa có nét gaming, lại vẫn phù hợp với môi trường công sở để bạn có thể mang đi học, đi làm hàng ngày. Máy có trọng lượng chỉ 2,3kg và độ mỏng 21,8mm, khá mỏng nhẹ khi so với các <a href=\"https://fptshop.com.vn/may-tinh-xach-tay/gaming-do-hoa\">laptop gaming</a> khác, sẵn sàng đồng hành cùng bạn trên mọi nẻo đường.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/0511/Lenovo-IdeaPad-Gaming-3-15ARH7-black-4.jpg\" alt=\"Lenovo IdeaPad Gaming 3 15IAH7 (ảnh 8)\"></figure>',	'1680449480_asus.webp',	'1',	'2023-04-02 15:31:20',	'2023-04-02 15:31:20',	NULL),
+(9,	'MacBook Air 13\" 2020 M1 256GB',	1,	7,	'13.3 inch, 2560 x 1600 Pixels, IPS, IPS LCD LED Backlit, True Tone',	'<h2>Đánh giá chi tiết MacBook Air 13\" 2020 M1 256GB</h2><p><strong>Chiếc </strong><a href=\"https://fptshop.com.vn/may-tinh-xach-tay/macbook-air\"><strong>MacBook Air</strong></a><strong> có hiệu năng đột phá nhất từ trước đến nay đã xuất hiện. Bộ vi xử lý </strong><a href=\"https://fptshop.com.vn/tin-tuc/danh-gia/tat-tan-tat-ve-chip-apple-m1-bo-vi-xu-ly-dinh-cao-moi-danh-cho-mac-128095\"><strong>Apple M1</strong></a><strong> hoàn toàn mới đưa sức mạnh của MacBook Air M1 13 inch 2020 vượt xa khỏi mong đợi người dùng, có thể chạy được những tác vụ nặng và thời lượng pin đáng kinh ngạc.</strong></p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/Tin-Tuc/QuanLNH2/macbook-air-m1-1.jpg\" alt=\"MacBook Air M1 2020 13 inch chính hãng Apple\"></figure><h3><strong>Sức mạnh chưa từng thấy trên dòng MacBook Air</strong></h3><p>Lần đầu tiên Apple sử dụng con chip do chính mình sản xuất cho dòng máy <a href=\"https://fptshop.com.vn/may-tinh-xach-tay/apple-macbook\">Macbook</a>. Bộ vi xử lý Apple M1 với 16 tỉ bóng bán dẫn, bao gồm 8 nhân cực mạnh, trong đó có 4 nhân hiệu năng cao và 4 nhân tiết kiệm điện, mang đến cho MacBook Air M1 tốc độ xử lý tuyệt vời, đồng thời kéo dài thời lượng pin. Nhờ vậy MacBook Air M1 2020 có hiệu suất nhanh gấp 3,5 lần thế hệ cũ, cho bạn làm việc với cả những công việc chuyên nghiệp, những tác vụ nặng mà không thể chạy được trên MacBook Air trước đây.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/Tin-Tuc/QuanLNH2/macbook-air-m1-17.jpg\" alt=\"cấu hình MacBook Air M1 2020\"></figure><h3><strong>Khả năng xử lý đồ họa đỉnh cao</strong></h3><p>MacBook Air M1 13 inch 2020 có khả năng đồ họa khó tin trên một chiếc laptop siêu nhỏ gọn. GPU tích hợp trên Apple M1 có tới 8 nhân và là GPU tích hợp mạnh nhất thế giới laptop hiện nay. So với thế hệ trước, MacBook Air M1 2020 có khả năng xử lý đồ họa mạnh gấp 5 lần. Giờ đây ngay trên chiếc MacBook Air cực kỳ di động, bạn đã có thể xem và chỉnh sửa video 4K mượt mà, thậm chí là chơi game cũng như chạy các tác vụ đồ họa chuyên sâu.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/Tin-Tuc/QuanLNH2/macbook-air-m1-10.jpg\" alt=\"đồ họa MacBook Air M1\"></figure><h3><strong>Thời lượng pin tới 18 tiếng</strong></h3><p>MacBook Air trước đây đã được đánh giá cao về thời lượng pin, nhưng với MacBook Air M1 2020, bạn còn làm được nhiều điều hơn thế. Chiếc MacBook Air mới nhất có thể lướt web liên tục trong 15 tiếng và xem video liên tục trong 18 tiếng. Sẽ thật dễ dàng để bạn làm việc hay giải trí cả ngày mà không cần quan tâm đến nguồn điện với MacBook Air M1.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/Tin-Tuc/QuanLNH2/macbook-air-m1-11.jpg\" alt=\"thời lương pin MacBook Air M1 2020\"></figure><h3><strong>Hoạt động êm ái</strong></h3><p>Không cần đến quạt tản nhiệt, MacBook Air M1 2020 vẫn có thể tản nhiệt hiệu quả bởi một bộ tản nhiệt với những lá nhôm. Nhờ vậy, chiếc <a href=\"https://fptshop.com.vn/may-tinh-xach-tay\">laptop</a> của bạn có thể hoạt động êm ái, hoàn toàn yên tĩnh dù là trong đêm tối.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/Tin-Tuc/QuanLNH2/macbook-air-m1-3.jpg\" alt=\"tản nhiệt MacBook Air M1 13 inch 2020\"></figure><h3><strong>Tận hưởng hình ảnh đẹp tuyệt mỹ trên màn hình Retina</strong></h3><p>Trước mắt bạn là màn hình chuẩn Retina 13,3 inch, độ phân giải 2560 x 1600 pixels siêu nét của MacBook Air M1 2020. Tất cả đều hiển thị hoàn hảo, sắc nét, chân thực và màu sắc chính xác gần như tuyệt đối.</p><p>Màn hình MacBook Air M1 hỗ trợ công nghệ True Tone và dải màu rộng P3 nhiều hơn tới 25% màu sắc so với chuẩn sRGB thông thường. Dù là giải trí hay làm đồ họa chuyên nghiệp, màn hình MacBook Air cũng cho bạn cái nhìn trung thực, chính xác và hấp dẫn nhất.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/Tin-Tuc/QuanLNH2/macbook-air-m1-16.jpg\" alt=\"màn hình MacBook Air M1\"></figure><h3><strong>Tăng cường chất lượng gọi video</strong></h3><p>Cả âm thanh và hình ảnh trong các cuộc gọi FaceTime đều được cải thiện trên MacBook Air M1 2020. Con chip xử lý hình ảnh của Apple M1 giúp chất lượng hình ảnh tốt hơn bao giờ hết, rõ nét kể cả trong điều kiện thiếu sáng. Hệ thống 3 micro tập trung vào giọng nói của bạn, đàm thoại to, rõ ràng dù trong môi trường ồn ào.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/Tin-Tuc/QuanLNH2/macbook-air-m1-20.jpg\" alt=\"gọi video MacBook Air M1\"></figure><h3><strong>Bàn phím Magic Keyboard, trải nghiệm gõ phím tốt nhất</strong></h3><p>Đúng như tên gọi, <a href=\"https://fptshop.com.vn/apple/ban-phim\">bàn phím Magic Keyboard</a> của MacBook Air M1 13 inch 2022 quả là mang đến những điều kỳ diệu. Cơ chế bàn phím cắt kéo, các phím tắt hữu ích, biểu tượng cảm xúc tiện lợi và đèn nền có cảm biến ánh sáng, tất cả kết hợp lại tạo nên <a href=\"https://fptshop.com.vn/phu-kien/ban-phim\">bàn phím laptop</a> hoàn hảo bậc nhất hiện nay.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/Tin-Tuc/QuanLNH2/macbook-air-m1-21.jpg\" alt=\"bàn phím MacBook Air M1\"></figure><h3><strong>Cảm biến vân tay Touch ID một chạm</strong></h3><p>Không cần phải mất thời gian nhập mật khẩu, trên MacBook Air M1 2020, cảm biến vân tay Touch ID sẽ đăng nhập mọi thứ chỉ với một cú chạm. Mở khóa máy tính hay mở khóa tài liệu bảo mật, truy cập cài đặt hệ thống, bạn đều có thể sử dụng vân tay một cách nhanh chóng và an toàn.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/Tin-Tuc/QuanLNH2/macbook-air-m1-5.jpg\" alt=\"vân tay MacBook Air M1\"></figure><h3><strong>Kết nối mạnh mẽ và tiên tiến hàng đầu</strong></h3><p>Dù là kết nối không dây hay có dây, MacBook Air M1 cũng đều sở hữu những công nghệ hàng đầu hiện nay. Thế hệ WiFi 6 cho tốc độ nhanh, chất lượng kết nối ổn định, phạm vi phủ sóng rộng để bạn vẫn có WiFi ổn định ở những nơi công cộng. Trong khi đó cổng Thunderbolt 4 là cổng kết nối đa năng và mạnh mẽ nhất, khi có thể truyền dữ liệu, sạc hay xuất hình để sử dụng nhiều màn hình cùng lúc.</p><figure class=\"image\"><img src=\"https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/Uploads/images/2015/Tin-Tuc/QuanLNH2/macbook-air-m1-4.jpg\" alt=\"kết nối MacBook Air M1\"></figure><h2>Thông số kỹ thuật</h2><figure class=\"table\"><table><tbody><tr><td>Màn hình</td><td>13.3 inch, 2560 x 1600 Pixels, IPS, IPS LCD LED Backlit, True Tone</td></tr><tr><td>CPU</td><td>Apple, M1</td></tr><tr><td>RAM</td><td>8 GB, LPDDR4</td></tr><tr><td>Ổ cứng</td><td>SSD 256 GB</td></tr><tr><td>Đồ họa</td><td>Apple M1 GPU 7 nhân</td></tr><tr><td>Trọng lượng</td><td>1.29 kg</td></tr><tr><td>Kích thước</td><td>304.1 x 212.4 x 4.1 ~ 16.1 mm</td></tr><tr><td>Xuất xứ</td><td>Trung Quốc</td></tr><tr><td>Năm ra mắt</td><td>2020</td></tr></tbody></table></figure><p><a href=\"https://fptshop.com.vn/may-tinh-xach-tay/macbook-air-13-2020-m1-256gb#\">Xem cấu hình chi tiết</a></p><h2>Tin tức về MacBook Air 13\" 2020 M1 256GB</h2><p><br> </p>',	'1680449578_asu.webp',	'1',	'2023-04-02 15:32:58',	'2023-04-02 15:32:58',	NULL);
 
 
-DROP TABLE IF EXISTS `products`;
-CREATE TABLE `products` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_model_id` bigint(20) unsigned NOT NULL,
-  `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `color` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ram` int(11) DEFAULT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci,
-  `price` bigint(20) DEFAULT NULL,
-  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `quantity` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `products_name_unique` (`name`),
-  KEY `products_product_model_id_foreign` (`product_model_id`),
-  CONSTRAINT `products_product_model_id_foreign` FOREIGN KEY (`product_model_id`) REFERENCES `product_models` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-DROP TABLE IF EXISTS `product_models`;
-CREATE TABLE `product_models` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_id` bigint(20) unsigned NOT NULL,
-  `brand_id` bigint(20) unsigned NOT NULL,
-  `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci,
-  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `product_models_name_unique` (`name`),
-  KEY `product_models_category_id_foreign` (`category_id`),
-  KEY `product_models_brand_id_foreign` (`brand_id`),
-  CONSTRAINT `product_models_brand_id_foreign` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`id`),
-  CONSTRAINT `product_models_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-DROP TABLE IF EXISTS `stocks`;
-CREATE TABLE `stocks` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `product_id` bigint(20) unsigned NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `stocks_product_id_foreign` (`product_id`),
-  CONSTRAINT `stocks_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '0: not verify; 1: verified',
-  `role` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'GUEST',
-  `cccd` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `avatar` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `gender` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date_of_birth` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `verify_token` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remember_token` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`),
-  UNIQUE KEY `users_phone_unique` (`phone`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `status`, `role`, `cccd`, `avatar`, `gender`, `address`, `date_of_birth`, `verify_token`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1,	'Phong  Tran',	'admin@gmail.com',	'0374110298',	'$2y$10$jmaw0A5.8GN5OihWWBYm/.C/YGwD6V2GlfE70UbqKtq16rDOEUECW',	'0',	'ADMIN',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2023-03-27 10:00:10',	'2023-03-27 10:00:10',	NULL);
+(1,	'Phong  Tran',	'admin@gmail.com',	'0374110298',	'$2y$10$jmaw0A5.8GN5OihWWBYm/.C/YGwD6V2GlfE70UbqKtq16rDOEUECW',	'0',	'ADMIN',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2023-03-27 10:00:10',	'2023-03-27 10:00:10',	NULL),
+(2,	'Truong Ha Phuong',	'haphuong@gmail.com',	'0123456789',	'$2y$10$AcdFum5KCvMQbv2Ww5y4d.5WSSu9Z9L25ReUtMYcbPQjjsQ4CETeu',	'0',	'GUEST',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2023-04-02 15:15:00',	'2023-04-02 15:15:00',	NULL),
+(3,	'Pham Van Nam',	'phamnam@gmail.com',	'0123456788',	'$2y$10$0D5hRWHbbnBZPfVWNp9vVey74KrMg4on.JbFlkPTPUWfbZN5lbcX6',	'0',	'GUEST',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2023-04-02 15:15:31',	'2023-04-02 15:15:31',	NULL),
+(4,	'Do Ngoc Tho',	'thongoc@gmail.com',	'0123456787',	'$2y$10$fvMGbbuiiSasM4pV9KIuFu9NkHMUY.y97L2Muc6hC9xTBjyaLy9Ui',	'0',	'GUEST',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2023-04-02 15:15:56',	'2023-04-02 15:15:56',	NULL);
 
--- 2023-04-02 11:12:36
+-- 2023-04-02 16:56:58

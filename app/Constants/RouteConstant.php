@@ -28,6 +28,10 @@ class RouteConstant
     public const DASHBOARD_PRODUCT_MODEL_CREATE   = 'dashboard.product.model.create';
     public const DASHBOARD_PRODUCT_MODEL_UPDATE   = 'dashboard.product.model.update';
     public const DASHBOARD_PRODUCT_MODEL_DELETE   = 'dashboard.product.model.delete';
+    public const DASHBOARD_STORAGE_LIST     = 'dashboard.storage.list';
+    public const DASHBOARD_STORAGE_CREATE   = 'dashboard.storage.create';
+    public const DASHBOARD_STORAGE_UPDATE   = 'dashboard.storage.update';
+    public const DASHBOARD_STORAGE_DELETE   = 'dashboard.storage.delete';
     public const DASHBOARD_BILL_LIST        = 'dashboard.bill.list';
     public const DASHBOARD_BILL_DETAIL      = 'dashboard.bill.detail';
     public const DASHBOARD_BILL_UPDATE      = 'dashboard.bill.update';
@@ -54,6 +58,10 @@ class RouteConstant
         'product_model_create'      => self::DASHBOARD_PRODUCT_MODEL_CREATE,
         'product_model_update'      => self::DASHBOARD_PRODUCT_MODEL_UPDATE,
         'product_model_delete'      => self::DASHBOARD_PRODUCT_MODEL_DELETE,
+        'storage_list'              => self::DASHBOARD_STORAGE_LIST,
+        'storage_create'            => self::DASHBOARD_STORAGE_CREATE,
+        'storage_update'            => self::DASHBOARD_STORAGE_UPDATE,
+        'storage_delete'            => self::DASHBOARD_STORAGE_DELETE,
         'bill_list'                 => self::DASHBOARD_BILL_LIST,
         'bill_update'               => self::DASHBOARD_BILL_UPDATE,
         'bill_delete'               => self::DASHBOARD_BILL_DELETE,

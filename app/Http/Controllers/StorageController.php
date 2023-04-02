@@ -3,38 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\Create\ProductRequest;
+use App\Http\Requests\Create\StorageRequest;
 use Illuminate\Http\RedirectResponse;
-use App\Repositories\Contracts\Interface\ProductRepositoryInterface;
-use App\Repositories\Contracts\Interface\CategoryRepositoryInterface;
-use App\Repositories\Contracts\Interface\BrandRepositoryInterface;
+use App\Repositories\Contracts\Interface\StorageRepositoryInterface;
+use App\Repositories\Contracts\Interface\ProductModelRepositoryInterface;
 use App\Services\ImageService;
 use Illuminate\View\View;
-use App\Constants\ProductConstant;
+use App\Constants\StorageConstant;
 use App\Constants\Constant;
 use App\Constants\RouteConstant;
 
-class ProductController extends Controller
+class StorageController extends Controller
 {
     /**
      * @var string
      */
-    protected $breadcrumb = ProductConstant::BREADCRUMB;
+    protected $breadcrumb = StorageConstant::BREADCRUMB;
 
     /**
-     * @var productRepository
+     * @var storageRepository
      */
-    protected $productRepository;
+    protected $storageRepository;
 
     /**
-     * @var categoryRepository
+     * @var productModelRepository
      */
-    protected $categoryRepository;
-
-    /**
-     * @var brandRepository
-     */
-    protected $brandRepository;
+    protected $productModelRepository;
 
     /**
      * @var imageService
@@ -42,40 +36,39 @@ class ProductController extends Controller
     protected $imageService;
 
     /**
-     * @param ProductRepositoryInterface $productRepository
-     * @param CategoryRepositoryInterface $categoryRepository
+     * @param ProductModelRepositoryInterface $productModelRepository
+     * @param StorageRepositoryInterface $storageRepository
      * @param ImageService $imageService
      */
     public function __construct(
-        ProductRepositoryInterface $productRepository,
-        CategoryRepositoryInterface $categoryRepository,
-        BrandRepositoryInterface $brandRepository,
+        ProductModelRepositoryInterface $productModelRepository,
+        StorageRepositoryInterface $storageRepository,
         ImageService $imageService
         )
     {
-        $this->productRepository    = $productRepository;
-        $this->categoryRepository   = $categoryRepository;
-        $this->brandRepository      = $brandRepository;
-        $this->imageService         = $imageService;
+        $this->productModelRepository   = $productModelRepository;
+        $this->storageRepository        = $storageRepository;
+        $this->imageService             = $imageService;
     }
 
     /**
+     * @param integer $model
      * @param Request $request
-     *
+     * 
      * @return View
      */
-    public function list(Request $request) : View
+    public function list(int $model, Request $request) : View
     {
-        if (null !== $request->category) :
-            $products = $this->productRepository->getProductsByCategory($request->category);
-        else :
-            $products = $this->productRepository->getAll();
+        if (null !== $request->model) :
+            $productStorage = $this->storageRepository->getStorageByModel($request->model);
+        dd($productStorage->toArray());
+            return view('dashboard.list.product', [
+                'productStorage'    => $productStorage,
+                'breadcrumb'        => $this->breadcrumb
+            ]);
         endif;
 
-        return view('dashboard.list.product', [
-            'products'      => $products,
-            'breadcrumb'    => $this->breadcrumb
-        ]);
+        return redirect()->back()->with('errMsg', 'Product model not found');
     }
 
     /**
