@@ -34,7 +34,7 @@ use App\Constants\RouteConstant;
                             <td>
                                 <div class="px-2 py-1">
                                     <div class="flex-column justify-content-center">
-                                        <h6 class="mb-0">{{mb_strimwidth($item->name, 0, 50, "...");}} </h6>
+                                        <h6 class="mb-0">{{mb_strimwidth($item->name, 0, 50, "...");}}</h6>
                                     </div>
                                 </div>
                             </td>

@@ -76,5 +76,9 @@
     "product_model_list": "Product Model List",
     "product_model_create": "Product Model Create",
     "product_model_update": "Product Model Update",
-    "product_model_description": "Product Model Description"
+    "product_model_description": "Product Model Description",
+    "storage_list": "Storage List",
+    "storage_create": "Storage Create",
+    "storage_update": "Storage Update",
+    "storage_delete": "Storage Delete"
 }

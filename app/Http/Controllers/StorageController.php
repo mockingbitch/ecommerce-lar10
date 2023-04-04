@@ -54,15 +54,16 @@ class StorageController extends Controller
     /**
      * @param integer $model
      * @param Request $request
-     * 
-     * @return View
+     *
+     * @return View|RedirectResponse
      */
-    public function list(int $model, Request $request) : View
+    public function list(int $model, Request $request) : View|RedirectResponse
     {
-        if (null !== $request->model) :
+        if ($productModel = $this->productModelRepository->find($model)) :
             $productStorage = $this->storageRepository->getStorageByModel($request->model);
-        dd($productStorage->toArray());
-            return view('dashboard.list.product', [
+
+            return view('dashboard.list.storage', [
+                'productModel'      => $productModel,
                 'productStorage'    => $productStorage,
                 'breadcrumb'        => $this->breadcrumb
             ]);
@@ -74,101 +75,78 @@ class StorageController extends Controller
     /**
      * @return View|RedirectResponse
      */
-    public function viewCreate() : View|RedirectResponse
+    public function viewCreate(int $model) : View|RedirectResponse
     {
-        $categories = $this->categoryRepository->getAvailableCategory();
-        $brands     = $this->brandRepository->getAvailableBrand();
-
-        if  (! $categories || count($categories) == 0 || ! $brands || count($brands) == 0) :
-            return redirect()
-                ->route(RouteConstant::DASHBOARD['product_list'])
-                ->with([
-                    'errMsg' => ProductConstant::ERR_MSG_CATEGORY_NOT_FOUND
-                ]);
+        if ($productModel = $this->productModelRepository->find($model)) :
+            return view('dashboard.create.storage', [
+                'productModel'  => $productModel,
+                'breadcrumb'    => $this->breadcrumb
+            ]);
         endif;
 
-        return view('dashboard.create.product', [
-            'categories'    => $categories,
-            'brands'        => $brands,
-            'breadcrumb'    => $this->breadcrumb
-        ]);
+        return redirect()->back()->with('errMsg', 'Product Model not found');
     }
 
     /**
      * @param Request $request
      * @return View|RedirectResponse
      */
-    public function viewUpdate(Request $request) : View|RedirectResponse
+    public function viewUpdate(int $model, Request $request) : View|RedirectResponse
     {
-        try {
-            $product    = $this->productRepository->find($request->id);
-            $categories = $this->categoryRepository->getAvailableCategory();
-            $brands     = $this->brandRepository->getAvailableBrand();
-
-            if  (! $categories || null === $categories || count($categories) == 0 || null == $product) :
-                return redirect()
-                    ->route(RouteConstant::DASHBOARD['product_list'])
-                    ->with([
-                        'errMsg' => ProductConstant::ERR_MSG_NOT_FOUND
-                    ]);
-            endif;
-
-            return view('dashboard.update.product', [
-                'product'       => $product,
-                'categories'    => $categories,
-                'brands'        => $brands,
-                'breadcrumb'    => $this->breadcrumb
-            ]);
-        } catch (\Throwable $th) {
-            return redirect()
-                ->route(RouteConstant::DASHBOARD['product_list'])
-                ->with([
-                    'errMsg' => ProductConstant::ERR_MSG_NOT_FOUND
+        if ($productModel = $this->productModelRepository->find($model)) :
+            if ($productStorage = $this->storageRepository->find($request->id)) :
+                return view('dashboard.update.storage', [
+                    'productStorage'    => $productStorage,
+                    'productModel'      => $productModel,
+                    'breadcrumb'        => $this->breadcrumb
                 ]);
-        }
+            endif;
+        endif;
+
+        return redirect()->back()->with('errMsg', 'Product Model not found');
     }
 
     /**
-     * @param ProductRequest $request
+     * @param integer $model
+     * @param Request $request
+     *
      * @return View|RedirectResponse
      */
-    public function create(ProductRequest $request) : View|RedirectResponse
+    public function create(int $model, Request $request) : View|RedirectResponse
     {
-        $category_id    = $request->category_id;
-        $brand_id       = $request->brand_id;
-
-        if (! $this->categoryRepository->find($category_id) || ! $this->brandRepository->find($brand_id)) :
+        if (! $this->productModelRepository->find($model)) :
             return redirect()
-                ->route(RouteConstant::DASHBOARD['product_create'])
+                ->route(RouteConstant::DASHBOARD['storage_create'])
                 ->with([
-                    'errMsg' => ProductConstant::ERR_MSG_CATEGORY_NOT_FOUND
+                    'errMsg' => StorageConstant::ERR_MSG_PRODUCT_MODEL_NOT_FOUND
                 ]);
         endif;
 
         $data = $request->toArray();
+        $data['product_model_id'] = $model;
 
         if (null !== $request->image) :
-            $data['image'] = $this->imageService->create($request->image, ProductConstant::IMAGE_FOLDER);
+            $data['image'] = $this->imageService->create($request->image, StorageConstant::IMAGE_FOLDER);
 
             if (null == $data['image'] || $data['image'] == '') :
                 return redirect()
-                    ->route(RouteConstant::DASHBOARD['product_create'])
+                    ->route(RouteConstant::DASHBOARD['storage_create'], ['model' => $model])
                     ->with([
-                        'errMsg' => ProductConstant::ERR_MSG_CANT_PROCESS_IMAGE
+                        'errMsg' => StorageConstant::ERR_MSG_CANT_PROCESS_IMAGE
                     ]);
             endif;
         endif;
 
-        if (! $this->productRepository->create($data)) :
+        if (! $this->storageRepository->create($data)) :
             return redirect()
-                ->route(RouteConstant::DASHBOARD['product_create'])
+                ->route(RouteConstant::DASHBOARD['storage_create'], ['model' => $model])
                 ->with([
                     'errMsg' => Constant::ERR_MSG['create_fail']
                 ]);
         endif;
 
         return redirect()
-            ->route(RouteConstant::DASHBOARD['product_create'])
+            ->route(RouteConstant::DASHBOARD['storage_create'], ['model' => $model])
             ->with([
                 'msg' => Constant::ERR_MSG['create_success']
             ]);
