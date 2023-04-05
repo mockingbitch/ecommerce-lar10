@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-use App\Repositories\Contracts\Interface\ProductRepositoryInterface as ProductRepository;
+use App\Repositories\Contracts\Interface\ProductModelRepositoryInterface as ProductModelRepository;
 use App\Repositories\Contracts\Interface\CategoryRepositoryInterface as CategoryRepository;
 
 class HomeController extends Controller
 {
     /**
-     * @var productRepository
+     * @var productModelRepository
      */
-    protected $productRepository;
+    protected $productModelRepository;
 
     /**
      * @var categoryRepository
@@ -21,16 +21,16 @@ class HomeController extends Controller
     protected $categoryRepository;
 
     /**
-     * @param ProductRepository $productRepository
+     * @param ProductModelRepository $productModelRepository
      * @param CategoryRepository $categoryRepository
      */
     public function __construct(
-        ProductRepository $productRepository,
+        ProductModelRepository $productModelRepository,
         CategoryRepository $categoryRepository
     )
     {
-        $this->productRepository = $productRepository;
-        $this->categoryRepository = $categoryRepository;
+        $this->productModelRepository   = $productModelRepository;
+        $this->categoryRepository       = $categoryRepository;
     }
 
     /**
@@ -50,7 +50,7 @@ class HomeController extends Controller
      */
     public function index() : View
     {
-        $products = $this->productRepository->getActive();
+        $products = $this->productModelRepository->getActive();
         $categories = $this->categoryRepository->getActive();
 
         return view('home.pages.homepage', [

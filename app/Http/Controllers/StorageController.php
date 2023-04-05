@@ -153,54 +153,54 @@ class StorageController extends Controller
     }
 
     /**
-     * @param ProductRequest $request
+     * @param integer $model
+     * @param Request $request
      *
      * @return RedirectResponse
      */
-    public function update(ProductRequest $request) : RedirectResponse
+    public function update(int $model, Request $request) : RedirectResponse
     {
         $data        = $request->toArray();
-        $category_id = $request->category_id;
 
-        if (! $this->categoryRepository->find($category_id)) :
+        if (! $productModel = $this->productModelRepository->find($model)) :
             return redirect()
-                ->route(RouteConstant::DASHBOARD['product_update'], ['id' => $request->id])
+                ->route(RouteConstant::DASHBOARD['storage_list'], ['model' => $model])
                 ->with([
-                    'errMsg' => ProductConstant::ERR_MSG_CATEGORY_NOT_FOUND
+                    'errMsg' => StorageConstant::ERR_MSG_PRODUCT_MODEL_NOT_FOUND
                 ]);
         endif;
 
-        if (! $product = $this->productRepository->find($request->id)) :
+        if (! $productStorage = $this->storageRepository->find($request->id)) :
             return redirect()
-                ->route(RouteConstant::DASHBOARD['product_list'])
-                ->with('msg', ProductConstant::ERR_MSG_NOT_FOUND);
+                ->route(RouteConstant::DASHBOARD['storage_list'])
+                ->with('errMsg', StorageConstant::ERR_MSG_PRODUCT_STORAGE_NOT_FOUND);
         endif;
 
 
         if (null !== $request->image) :
-            $data['image'] = $this->imageService->create($request->image, ProductConstant::IMAGE_FOLDER);
+            $data['image'] = $this->imageService->create($request->image, StorageConstant::IMAGE_FOLDER);
 
             if (null == $data['image'] || $data['image'] == '') :
                 return redirect()
-                    ->route(RouteConstant::DASHBOARD['product_update'], ['id' => $request->id])
+                    ->route(RouteConstant::DASHBOARD['storage_update'], ['model' => $model, 'id' => $request->id])
                     ->with([
-                        'errMsg' => ProductConstant::ERR_MSG_CANT_PROCESS_IMAGE
+                        'errMsg' => StorageConstant::ERR_MSG_CANT_PROCESS_IMAGE
                     ]);
             endif;
 
-            $this->imageService->delete($product->image, 'products');
+            $this->imageService->delete($productStorage->image, 'products');
         endif;
 
-        if (! $this->productRepository->update($request->id, $data)) :
+        if (! $this->storageRepository->update($request->id, $data)) :
             return redirect()
-                ->route(RouteConstant::DASHBOARD['product_update'], ['id' => $request->id])
+                ->route(RouteConstant::DASHBOARD['storage_update'], ['model' => $model, 'id' => $request->id])
                 ->with([
                     'errMsg' => Constant::ERR_MSG['update_fail']
                 ]);
         endif;
 
         return redirect()
-            ->route(RouteConstant::DASHBOARD['product_update'], ['id' => $request->id])
+            ->route(RouteConstant::DASHBOARD['storage_update'], ['model' => $model, 'id' => $request->id])
             ->with([
                 'msg' => Constant::ERR_MSG['update_success']
             ]);
@@ -213,9 +213,7 @@ class StorageController extends Controller
      */
     public function delete(Request $request) : bool
     {
-        $product_id = $request->query('id');
-
-        if (! $this->productRepository->delete($product_id)) :
+        if (! $this->storageRepository->delete($request->query('id'))) :
             return false;
         endif;
 

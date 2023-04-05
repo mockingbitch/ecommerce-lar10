@@ -271,16 +271,21 @@ class ProductModelController extends Controller
 
     public function productDetail(?int $id)
     {
-        $product = $this->productRepository->find($id);
-        $related_products = $this->productRepository->getAll();
+        $productModel       = $this->productModelRepository->find($id);
 
-        if (! $product || null === $product) :
+        if (! $productModel || null === $productModel) :
             return redirect()->back()->with('errMsg', trans('product_not_found'));
         endif;
 
+        $productStorage     = $productModel->storage;
+        $relatedProducts    = $this->productModelRepository->getAll();
+
+
+
         return view('home.pages.product_detail', [
-            'product' => $product,
-            'related_products' => $related_products
+            'productModel'      => $productModel,
+            'productStorage'    => $productStorage,
+            'relatedProducts'  => $relatedProducts
         ]);
     }
 }

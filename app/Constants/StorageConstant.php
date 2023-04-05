@@ -10,6 +10,7 @@ class StorageConstant
     public const ERR_MSG_CANT_PROCESS_IMAGE = 'Không thể xử lý ảnh';
     public const IMAGE_FOLDER               = 'products';
     public const ERR_MSG_PRODUCT_MODEL_NOT_FOUND  = 'Không tìm thấy mẫu sản phẩm';
+    public const ERR_MSG_PRODUCT_STORAGE_NOT_FOUND = 'Không tìm thấy chi tiết sản phẩm';
 
     public const COLUMN_ID          = 'id';
     public const COLUMN_NAME        = 'name';

@@ -192,7 +192,7 @@
                     <!-- /store top filter -->
 
                     <!-- store products -->
-                    <div class="row">
+                    <div class="row" style="display: flex; flex-flow: row wrap;">
                     @foreach($listProduct as $product)
                         <!-- product -->
                             <div class="col-md-4 col-xs-6">
@@ -207,8 +207,8 @@
                                         </div>
                                     </a>
                                     <div class="product-body">
-                                        <h3 class="product-name"><a href="">{{$product->name}}</a></h3>
-                                        <h4 class="product-price">{{number_format($product->price)}} Đ</h4>
+                                        <h3 class="product-name"><a href="{{route(RouteConstant::HOME_PRODUCT_DETAIL, ['id' => $product->id])}}">{{$product->name}}</a></h3>
+                                        <h4 class="product-price">{{isset($product->storage[0]) ? number_format($product->storage[0]->price) . ' Đ' : 'Hết hàng'}}</h4>
                                         <div class="product-rating">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>

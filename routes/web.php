@@ -6,7 +6,6 @@ use App\Http\Controllers\AuthController as Auth;
 use App\Http\Controllers\HomeController as Home;
 use App\Http\Controllers\CategoryController as Category;
 use App\Http\Controllers\BrandController as Brand;
-// use App\Http\Controllers\ProductController as Product;
 use App\Http\Controllers\ProductModelController as ProductModel;
 use App\Http\Controllers\StorageController as Storage;
 use App\Http\Controllers\DashboardController as Dashboard;
@@ -98,8 +97,8 @@ Route::group(['middleware' => 'locale'], function() {
     Route::prefix('/')->group(function () {
         Route::get('/', [Home::class, 'index'])->name(RouteConstant::HOMEPAGE);
         Route::get('/home', [Home::class, 'index'])->name(RouteConstant::HOMEPAGE);
-        Route::get('/products', [Product::class, 'listProduct'])->name(RouteConstant::HOME_LIST_PRODUCT);
-        Route::get('/product/{id}', [Product::class, 'productDetail'])->name(RouteConstant::HOME_PRODUCT_DETAIL);
+        Route::get('/products', [ProductModel::class, 'listProductModel'])->name(RouteConstant::HOME_LIST_PRODUCT);
+        Route::get('/product/{id}', [ProductModel::class, 'productDetail'])->name(RouteConstant::HOME_PRODUCT_DETAIL);
         Route::get('/cart', [Cart::class, 'listCart'])->name(RouteConstant::HOME_LIST_CART);
         Route::get('/add-cart', [Cart::class, 'create'])->name(RouteConstant::HOME_ADD_CART);
     });

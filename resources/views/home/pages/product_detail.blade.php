@@ -1,5 +1,6 @@
 @php
     use App\Constants\RouteConstant;
+    use App\Constants\ColorConstant;
 @endphp
 @extends('layouts.homeLayout')
 @section('content')
@@ -13,19 +14,19 @@
                 <div class="col-md-5 col-md-push-2">
                     <div id="product-main-img">
                         <div class="product-preview">
-                            <img src="{{asset('upload/images/products/' . $product->image)}}" alt="">
+                            <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="{{asset('upload/images/products/' . $product->image)}}" alt="">
+                            <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="{{asset('upload/images/products/' . $product->image)}}" alt="">
+                            <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="{{asset('upload/images/products/' . $product->image)}}" alt="">
+                            <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
                         </div>
                     </div>
                 </div>
@@ -36,19 +37,19 @@
                 <div class="col-md-2  col-md-pull-5">
                     <div id="product-imgs">
                         <div class="product-preview">
-                            <img src="{{asset('upload/images/products/' . $product->image)}}" alt="">
+                            <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="{{asset('upload/images/products/' . $product->image)}}" alt="">
+                            <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="{{asset('upload/images/products/' . $product->image)}}" alt="">
+                            <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
                         </div>
 
                         <div class="product-preview">
-                            <img src="{{asset('upload/images/products/' . $product->image)}}" alt="">
+                            <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
                         </div>
                     </div>
                 </div>
@@ -57,7 +58,7 @@
                 <!-- Product details -->
                 <div class="col-md-5">
                     <div class="product-details">
-                        <h2 class="product-name">{{$product->name}}</h2>
+                        <h2 class="product-name">{{$productModel->name}}</h2>
                         <div>
                             <div class="product-rating">
                                 <i class="fa fa-star"></i>
@@ -69,21 +70,26 @@
                             <a class="review-link" href="#">10 Review(s) | Add your review</a>
                         </div>
                         <div>
-                            <h3 class="product-price">{{number_format($product->price)}} Đ</h3>
+                            <h3 class="product-price">{{number_format($productModel->price)}} Đ</h3>
                             <span class="product-available">In Stock</span>
                         </div>
-                        <p>{{$product->description}}</p>
+                        <p>{{$productModel->description}}</p>
                         <div class="product-options">
                             <label>
-                                Size
-                                <select class="input-select">
-                                    <option value="0">X</option>
+                                ROM
+                                <select class="input-select" name="ram">
+                                    <option value="128">128 Gb</option>
+                                    <option value="256">256 Gb</option>
+                                    <option value="512">512 Gb</option>
+                                    <option value="1024">1024 Gb</option>
                                 </select>
                             </label>
                         <label>
                                 Color
                                 <select class="input-select">
-                                    <option value="0">Red</option>
+                                    @foreach (ColorConstant::COLOR as $color)
+                                        <option value="{{array_search($color, ColorConstant::COLOR)}}">{{$color}}</option>
+                                    @endforeach
                                 </select>
                         </label>
                         </div>
@@ -97,12 +103,11 @@
                                     <span class="qty-down">-</span>
                                 </div>
                             </div>
-                            @if($product->quantity > 0)
+                            {{-- @if($productModel->quantity > 0)
                                 <button class="add-to-cart-btn" onclick="addCartWithQuantity({{$product->id}})"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
                             @elseif($product->quantity<=0)
                                 <button class="add-to-cart-btn" ><i class="fa fa-shopping-cart"></i>Out of Stock</button>
-
-                            @endif
+                            @endif --}}
                             <button style="margin: 30px 0px 0px 170px" class="add-to-cart-btn"><a href="" style="color: white;font-weight: bold"><i class="fa fa-shopping-cart"></i> View Cart</a></button>
                         </div>
 
@@ -146,7 +151,7 @@
                             <div id="tab1" class="tab-pane fade in active">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <p>{{$product->detail}}</p>
+                                        <p>{!! $productModel->content !!}</p>
                                     </div>
                                 </div>
                             </div>
@@ -354,7 +359,7 @@
                         <h3 class="title">Related Products</h3>
                     </div>
                 </div>
-            @foreach($related_products as $products)
+            @foreach($relatedProducts as $products)
             <!-- product -->
                 <div class="col-md-3 col-xs-6">
                     <div class="product">

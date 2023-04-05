@@ -10,7 +10,7 @@ class ProductModel extends Model
     use HasFactory;
 
     protected $table = 'product_models';
-    
+
     protected $fillable = [
         'name',
         'description',
@@ -29,5 +29,10 @@ class ProductModel extends Model
     public function brand()
     {
         return $this->belongsTo(\App\Models\Brand::class, 'brand_id');
+    }
+
+    public function storage()
+    {
+        return $this->hasMany(\App\Models\Storage::class, 'product_model_id', 'id');
     }
 }
