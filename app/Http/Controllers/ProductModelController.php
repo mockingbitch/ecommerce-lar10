@@ -278,14 +278,22 @@ class ProductModelController extends Controller
         endif;
 
         $productStorage     = $productModel->storage;
+        $roms   = [];
+        $colors = [];
+
+        foreach ($productStorage as $item) :
+            $roms[]     = $item->ram;
+            $colors[]   = $item->color;
+        endforeach;
+
         $relatedProducts    = $this->productModelRepository->getAll();
-
-
 
         return view('home.pages.product_detail', [
             'productModel'      => $productModel,
             'productStorage'    => $productStorage,
-            'relatedProducts'  => $relatedProducts
+            'relatedProducts'   => $relatedProducts,
+            'roms'              => array_unique($roms),
+            'colors'            => array_unique($colors)
         ]);
     }
 }

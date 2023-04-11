@@ -16,8 +16,7 @@
                         <div class="product-preview">
                             <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
                         </div>
-
-                        <div class="product-preview">
+                        {{-- <div class="product-preview">
                             <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
                         </div>
 
@@ -28,6 +27,15 @@
                         <div class="product-preview">
                             <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
                         </div>
+
+                        <div class="product-preview">
+                            <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
+                        </div> --}}
+                        @foreach ($productStorage as $storage)
+                            <div class="product-preview">
+                                <img src="{{asset('upload/images/products/' . $storage->image)}}" alt="">
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <!-- /Product main img -->
@@ -39,8 +47,7 @@
                         <div class="product-preview">
                             <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
                         </div>
-
-                        <div class="product-preview">
+                        {{-- <div class="product-preview">
                             <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
                         </div>
 
@@ -51,6 +58,15 @@
                         <div class="product-preview">
                             <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
                         </div>
+
+                        <div class="product-preview">
+                            <img src="{{asset('upload/images/products/' . $productModel->image)}}" alt="">
+                        </div> --}}
+                        @foreach ($productStorage as $storage)
+                            <div class="product-preview">
+                                <img src="{{asset('upload/images/products/' . $storage->image)}}" alt="">
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <!-- /Product thumb imgs -->
@@ -78,17 +94,23 @@
                             <label>
                                 ROM
                                 <select class="input-select" name="ram">
-                                    <option value="128">128 Gb</option>
+                                    {{-- <option value="128">128 Gb</option>
                                     <option value="256">256 Gb</option>
                                     <option value="512">512 Gb</option>
-                                    <option value="1024">1024 Gb</option>
+                                    <option value="1024">1024 Gb</option> --}}
+                                    @foreach ($roms as $rom)
+                                        <option value="256">{{$rom}}</option>
+                                    @endforeach
                                 </select>
                             </label>
                         <label>
                                 Color
                                 <select class="input-select">
-                                    @foreach (ColorConstant::COLOR as $color)
+                                    {{-- @foreach (ColorConstant::COLOR as $color)
                                         <option value="{{array_search($color, ColorConstant::COLOR)}}">{{$color}}</option>
+                                    @endforeach --}}
+                                    @foreach ($colors as $color)
+                                        <option value="256">{{$color}}</option>
                                     @endforeach
                                 </select>
                         </label>
