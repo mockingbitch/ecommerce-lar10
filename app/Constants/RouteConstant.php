@@ -32,10 +32,10 @@ class RouteConstant
     public const DASHBOARD_STORAGE_CREATE   = 'dashboard.storage.create';
     public const DASHBOARD_STORAGE_UPDATE   = 'dashboard.storage.update';
     public const DASHBOARD_STORAGE_DELETE   = 'dashboard.storage.delete';
-    public const DASHBOARD_BILL_LIST        = 'dashboard.bill.list';
-    public const DASHBOARD_BILL_DETAIL      = 'dashboard.bill.detail';
-    public const DASHBOARD_BILL_UPDATE      = 'dashboard.bill.update';
-    public const DASHBOARD_BILL_DELETE      = 'dashboard.bill.delete';
+    public const DASHBOARD_ORDER_LIST        = 'dashboard.order.list';
+    public const DASHBOARD_ORDER_DETAIL      = 'dashboard.order.detail';
+    public const DASHBOARD_ORDER_UPDATE      = 'dashboard.order.update';
+    public const DASHBOARD_ORDER_DELETE      = 'dashboard.order.delete';
     public const DASHBOARD_USER_LIST        = 'dashboard.user.list';
     public const DASHBOARD_USER_UPDATE      = 'dashboard.user.update';
     public const DASHBOARD_CHART            = 'dashboard.chart';
@@ -62,10 +62,10 @@ class RouteConstant
         'storage_create'            => self::DASHBOARD_STORAGE_CREATE,
         'storage_update'            => self::DASHBOARD_STORAGE_UPDATE,
         'storage_delete'            => self::DASHBOARD_STORAGE_DELETE,
-        'bill_list'                 => self::DASHBOARD_BILL_LIST,
-        'bill_update'               => self::DASHBOARD_BILL_UPDATE,
-        'bill_delete'               => self::DASHBOARD_BILL_DELETE,
-        'bill_detail'               => self::DASHBOARD_BILL_DETAIL,
+        'order_list'                 => self::DASHBOARD_ORDER_LIST,
+        'order_update'               => self::DASHBOARD_ORDER_UPDATE,
+        'order_delete'               => self::DASHBOARD_ORDER_DELETE,
+        'order_detail'               => self::DASHBOARD_ORDER_DETAIL,
         'user_list'                 => self::DASHBOARD_USER_LIST,
         'user_update'               => self::DASHBOARD_USER_UPDATE,
         'chart'                     => self::DASHBOARD_CHART,
@@ -87,4 +87,8 @@ class RouteConstant
     public const HOME_LIST_CART         = 'home.list.cart';
     public const HOME_PRODUCT_DETAIL    = 'home.product.detail';
     public const HOME_ADD_CART          = 'home.add.cart';
+    public const HOME_UPDATE_CART       = 'home.update.cart';
+    public const HOME_REMOVE_CART       = 'home.remove.cart';
+    public const HOME_CHECK_OUT         = 'home.checkout';
+    public const HOME_CONFIRM_CHECKOUT  = 'home.confirm.checkout';
 }

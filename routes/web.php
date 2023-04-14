@@ -10,6 +10,8 @@ use App\Http\Controllers\ProductModelController as ProductModel;
 use App\Http\Controllers\StorageController as Storage;
 use App\Http\Controllers\DashboardController as Dashboard;
 use App\Http\Controllers\CartController as Cart;
+use App\Http\Controllers\OrderController as Order;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +89,13 @@ Route::group(['middleware' => 'locale'], function() {
                     Route::get('delete/{model}', [Storage::class, 'delete'])->name(RouteConstant::DASHBOARD['storage_delete']);
                 });
             });
+
+            //ORDER
+            Route::prefix('order')->group(function () {
+                Route::get('/', [Order::class, 'list'])->name(RouteConstant::DASHBOARD['order_list']);
+                Route::get('/{id}', [Order::class, 'detail'])->name(RouteConstant::DASHBOARD['order_detail']);
+                Route::get('/update/{id}/{type}', [Order::class, 'update'])->name(RouteConstant::DASHBOARD['order_update']);
+            });
         });
     });
 
@@ -101,5 +110,9 @@ Route::group(['middleware' => 'locale'], function() {
         Route::get('/product/{id}', [ProductModel::class, 'productDetail'])->name(RouteConstant::HOME_PRODUCT_DETAIL);
         Route::get('/cart', [Cart::class, 'listCart'])->name(RouteConstant::HOME_LIST_CART);
         Route::get('/add-cart', [Cart::class, 'create'])->name(RouteConstant::HOME_ADD_CART);
+        Route::get('/update-cart', [Cart::class, 'update'])->name(RouteConstant::HOME_UPDATE_CART);
+        Route::get('/remove-cart', [Cart::class, 'remove'])->name(RouteConstant::HOME_REMOVE_CART);
+        Route::get('/checkout', [Cart::class, 'checkout'])->name(RouteConstant::HOME_CHECK_OUT);
+        Route::post('/confirm-check-out', [Order::class, 'confirm'])->name(RouteConstant::HOME_CONFIRM_CHECKOUT);
     });
 });

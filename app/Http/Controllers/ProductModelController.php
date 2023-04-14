@@ -282,8 +282,10 @@ class ProductModelController extends Controller
         $colors = [];
 
         foreach ($productStorage as $item) :
-            $roms[]     = $item->ram;
-            $colors[]   = $item->color;
+            if ($item->quantity > 0) :
+                $roms[]     = $item->ram;
+                $colors[]   = $item->color;
+            endif;
         endforeach;
 
         $relatedProducts    = $this->productModelRepository->getAll();

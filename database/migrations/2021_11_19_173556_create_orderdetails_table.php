@@ -18,7 +18,7 @@ class CreateOrderdetailsTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders');
             $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('storages');
             $table->string('name')->nullable();
             $table->integer('quantity')->nullable();
             $table->bigInteger('price')->nullable();

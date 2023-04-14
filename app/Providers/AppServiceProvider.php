@@ -39,14 +39,14 @@ class AppServiceProvider extends ServiceProvider
             // $customer = Auth::guard('customer')->user();
             $categories = Category::where('status', 1)->get();
             $brands     = Brand::where('status', 1)->get();
-            // $carts = session()->get('cart');
-            // $cartQuantity = 0;
-            // if (isset($carts)){
-            //     $cartQuantity = count($carts);
-            // }
+            $carts = session()->get('cart');
+            $cartQuantity = 0;
+            if (isset($carts)){
+                $cartQuantity = count($carts);
+            }
             view()->share([
-                // 'cartQuantity'=>$cartQuantity,
-                // 'carts'=>$carts,
+                'cartQuantity'=>$cartQuantity,
+                'carts'=>$carts,
                 // 'customer' => $customer,
                 'categories' => $categories,
                 'brands' => $brands

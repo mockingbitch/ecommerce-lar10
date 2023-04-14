@@ -1,5 +1,6 @@
 @php
     use App\Constants\RouteConstant;
+    $user = auth()->guard('user')->user();
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,7 @@
 
     <!-- Custom stylesheet -->
     <link type="text/css" rel="stylesheet" href="{{asset('frontend/css/style.css')}}"/>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -49,19 +50,23 @@
         <div class="container">
             <ul class="header-links pull-left">
                 <li><a href="#"><i class="fa fa-phone"></i> +0123456789</a></li>
-                <li><a href="#"><i class="fa fa-envelope-o"></i> phongtq1@smartosc.com</a></li>
-                <li><a href="#"><i class="fa fa-map-marker"></i> 250 Kim Giang</a></li>
+                <li><a href="#"><i class="fa fa-envelope-o"></i> tran.phong@jvb-corp.com</a></li>
+                <li><a href="#"><i class="fa fa-map-marker"></i> Laptop Buy</a></li>
             </ul>
             <ul class="header-links pull-right">
-                @if (isset($user))
+                @if (null !== $user))
                     <li>
                         <div class="dropdown">
                             <button > <i class="fa fa-user-o"></i>{{$user->name ?? ''}}</button>
                             <div class="dropdown-content">
                                 <a href="" style="color: black"><i class="fa fa-user-o"></i>Thông tin</a>
-                                <a href="" style="color: black"><i class="fa fa-user-o"></i>Lịch sử mua hàng</a>
+                                @if ($user->role === 'ADMIN')
+                                    <a href="{{route(RouteConstant::DASHBOARD['home'])}}" style="color: black"><i class="fa fa-user-o"></i>Trang quản trị</a>
+                                @else
+                                    <a href="" style="color: black"><i class="fa fa-user-o"></i>Lịch sử mua hàng</a>
+                                @endif
 
-                                <a href="" style="color: red">Đăng xuất</a>
+                                <a href="{{route('logout')}}" style="color: red">Đăng xuất</a>
                             </div>
                         </div>
                     </li>
@@ -136,12 +141,12 @@
                                         @foreach($carts as $cart)
                                             <div class="product-widget">
                                                 <div class="product-img">
-                                                    <img width="50px" src="{{asset('upload/images/products/' . $cart['productImage'])}}" alt="">
+                                                    <img width="50px" src="{{asset('upload/images/products/' . $cart['image'])}}" alt="">
                                                 </div>
                                                 <div class="product-body">
-                                                    <h3 class="product-name"><a href="#">{{$cart['productName']}}</a></h3>
-                                                    <h4 class="product-price"><span class="qty">{{$cart['quantity']}}x</span>{{number_format($cart['productPrice'])}} Đ</h4>
-                                                    @php $total = $cart['quantity'] * $cart['productPrice'] @endphp
+                                                    <h3 class="product-name"><a href="#">{{$cart['name']}}</a></h3>
+                                                    <h4 class="product-price"><span class="qty">{{$cart['quantity']}}x</span>{{number_format($cart['price'])}} Đ</h4>
+                                                    @php $total = $cart['quantity'] * $cart['price'] @endphp
                                                 </div>
                                             @php $subtotal = $subtotal+$total; @endphp
                                                 <button class="delete" onclick="removeCart({{$cart['id']}})"><i class="fa fa-close"></i></button>
@@ -159,8 +164,8 @@
                                     @endif
                                 </div>
                                 <div class="cart-btns">
-                                    <a href="">Giỏ hàng</a>
-                                    <a href="">Thanh toán  <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="{{route(RouteConstant::HOME_LIST_CART)}}">Giỏ hàng</a>
+                                    <a href="{{route(RouteConstant::HOME_CHECK_OUT)}}">Thanh toán  <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -319,15 +324,27 @@
 <script src="{{asset('frontend/js/sweet-alert.js')}}"></script>
 
 <script>
-    function addCart(id){
-        $.get('{{route(RouteConstant::HOME_ADD_CART)}}', {"id":id}, function(data) {
-            console.log(data);
-            $("#listcart").load("{{route('home')}} .cart");
-            swal("...", "Đã thêm vào giỏ hàng!", "success");
-        });
-    }
+    // function addCart(id){
+    //     $.get('{{route(RouteConstant::HOME_ADD_CART)}}', {"id": id, "quantity": 1}, function(data) {
+    //         $("#listcart").load("{{route('home')}} .cart");
+    //         if (data.type === 'warning') {
+    //                 swal("Thất bại", "Sản phẩm hết hàng!", "warning");
+    //             }
+    //             if (data.type === 'success') {
+    //                 console.log(data);
+    //                 swal('Thành công', 'Đã thêm vào giỏ hàng', 'success')
+    //             }
+    //             if (data.type === 'error') {
+    //                 swal('Lỗi', 'Đã xảy ra lỗi, vui lòng thử lại', 'warning')
+    //             }
+    //             if (null === data.type || data.type === undefined) {
+    //                 swal('Error', 'JS error', 'warning')
+    //             }
+    //     });
+    // }
+
     function removeCart(id){
-        $.get("", {"id":id}, function(data) {
+        $.get('{{route(RouteConstant::HOME_REMOVE_CART)}}', {"id": id}, function(data) {
             $("#list-cart").load(" .cart-change");
             $("#listcart").load("{{route('home')}} .cart");
             $("#sub").load(" .sub-change");

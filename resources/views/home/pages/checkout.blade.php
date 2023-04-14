@@ -1,3 +1,8 @@
+@php
+    use App\Constants\RouteConstant;
+    $user = auth()->guard('user')->user();
+@endphp
+
 @extends('layouts.homeLayout')
 @section('content')
     <div class="section">
@@ -5,7 +10,7 @@
         <div class="container">
             <!-- row -->
             <div class="row">
-                <form action="{{route('confirm-check-out')}}" method="POST">
+                <form action="{{route(RouteConstant::HOME_CONFIRM_CHECKOUT)}}" method="POST">
                     @csrf
                     <div class="col-md-7">
                         <!-- Billing Details -->
@@ -18,12 +23,12 @@
                                     <p class="alert alert-danger">{{$error}}</p>
                                 @endforeach
                             </div>
-                        @if(isset($customer))
+                        @if(null !== $user)
                             <div class="form-group">
-                                <input class="input" type="text" name="customerName" value="{{$customer->customerName}}">
+                                <input class="input" type="text" name="name" value="{{$user->name}}">
                             </div>
                             <div class="form-group">
-                                <input class="input" type="email" name="email" value="{{$customer->email}}">
+                                <input class="input" type="email" name="email" value="{{$user->email}}">
                             </div>
                             <div class="form-group">
                                 <input class="input" type="text" name="address" placeholder="Address">
@@ -37,7 +42,7 @@
                             </div>
                             <!-- /Order notes -->
                             @else
-                            <h4>Vui lòng  <a href="{{route('customer-login-page')}}" style=" font-weight: bold">đăng nhập</a> để nhận được nhiều phần quà giá trị hơn.</h4>
+                            <h4>Vui lòng  <a href="{{route('login')}}" style=" font-weight: bold">đăng nhập</a> để nhận được nhiều phần quà giá trị hơn.</h4>
                             <h3>Hoặc mua nhanh</h3>
                             <div class="form-group">
                                 <input class="input" type="text" name="customerName" placeholder="Customer">
@@ -78,9 +83,9 @@
                             @foreach($carts as $cart)
                             <div class="order-products">
                                 <div class="order-col">
-                                    <div>{{$cart['quantity']}} x {{$cart['productName']}}</div>
-                                    <div>@php $total = $cart['quantity']*$cart['productPrice'];
-                                        echo number_format($total,0,',','.');
+                                    <div>{{$cart['quantity']}} x {{$cart['name']}}</div>
+                                    <div>@php $total = $cart['quantity'] * $cart['price'];
+                                        echo number_format($total, 0, ',', '.');
                                         @endphp Đ</div>
                                 </div>
                             </div>
@@ -95,7 +100,7 @@
                             </div>
                             <div class="order-col">
                                 <div><strong>Tổng thanh toán</strong></div>
-                                <div><strong class="order-total">@php echo number_format($subtotal,0,',','.');@endphp Đ</strong></div>
+                                <div><strong class="order-total">@php echo number_format($subtotal, 0, ',', '.');@endphp Đ</strong></div>
                             </div>
                         </div>
                         @if(isset($carts) )

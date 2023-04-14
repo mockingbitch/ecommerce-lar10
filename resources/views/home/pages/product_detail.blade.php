@@ -83,69 +83,58 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star-o"></i>
                             </div>
-                            <a class="review-link" href="#">10 Review(s) | Add your review</a>
+                            <a class="review-link" href="#">10 Bình luận | Thêm bình luận</a>
                         </div>
                         <div>
-                            <h3 class="product-price">{{number_format($productModel->price)}} Đ</h3>
-                            <span class="product-available">In Stock</span>
+                            <h3 class="product-price">{{isset($productStorage[0]) ? number_format($productStorage[0]->price) : '0'}} Đ</h3>
+                            @if (isset($productStorage[0]))
+                                <span class="product-available">Còn hàng</span>
+                            @else
+                                <span class="product-available">Hết hàng</span>
+                            @endif
                         </div>
                         <p>{{$productModel->description}}</p>
                         <div class="product-options">
                             <label>
-                                ROM
-                                <select class="input-select" name="ram">
-                                    {{-- <option value="128">128 Gb</option>
-                                    <option value="256">256 Gb</option>
-                                    <option value="512">512 Gb</option>
-                                    <option value="1024">1024 Gb</option> --}}
-                                    @foreach ($roms as $rom)
-                                        <option value="256">{{$rom}}</option>
+                                Loại:
+                                <select class="form-control" name="product_detail" id="product_detail">
+                                    @foreach ($productStorage as $item)
+                                        <option value="{{$item->id}}">{{$item->ram}} GB - {{$item->color}}</option>
                                     @endforeach
                                 </select>
                             </label>
-                        <label>
-                                Color
-                                <select class="input-select">
-                                    {{-- @foreach (ColorConstant::COLOR as $color)
-                                        <option value="{{array_search($color, ColorConstant::COLOR)}}">{{$color}}</option>
-                                    @endforeach --}}
-                                    @foreach ($colors as $color)
-                                        <option value="256">{{$color}}</option>
-                                    @endforeach
-                                </select>
-                        </label>
                         </div>
 
                         <div class="add-to-cart">
                             <div class="qty-label">
-                                Quantity
+                                Số lượng
                                 <div class="input-number">
                                     <input type="number" class="quantity" name="quantity" value="1" min="1">
                                     <span class="qty-up">+</span>
                                     <span class="qty-down">-</span>
                                 </div>
                             </div>
-                            {{-- @if($productModel->quantity > 0)
-                                <button class="add-to-cart-btn" onclick="addCartWithQuantity({{$product->id}})"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                            @elseif($product->quantity<=0)
-                                <button class="add-to-cart-btn" ><i class="fa fa-shopping-cart"></i>Out of Stock</button>
-                            @endif --}}
-                            <button style="margin: 30px 0px 0px 170px" class="add-to-cart-btn"><a href="" style="color: white;font-weight: bold"><i class="fa fa-shopping-cart"></i> View Cart</a></button>
+                            @if(isset($productStorage[0]))
+                                <button class="add-to-cart-btn" onclick="addToCartWithQuantity()"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</button>
+                            @else
+                                <button class="add-to-cart-btn" ><i class="fa fa-shopping-cart"></i>Hết hàng</button>
+                            @endif
+                            <a href="{{route(RouteConstant::HOME_LIST_CART)}}" style="color: white;font-weight: bold"> <button style="margin: 30px 0px 0px 170px" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Xem giỏ hàng</button></a>
                         </div>
 
                         <ul class="product-btns">
-                            <li><a href="#"><i class="fa fa-heart-o"></i> Wishlist</a></li>
-                            <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
+                            <li><a href="#"><i class="fa fa-heart-o"></i> Yêu thích</a></li>
+                            <li><a href="#"><i class="fa fa-exchange"></i> So sánh</a></li>
                         </ul>
 
                         <ul class="product-links">
-                            <li>Category:</li>
-                            <li><a href="#">Headphones</a></li>
-                            <li><a href="#">Accessories</a></li>
+                            <li>Danh mục:</li>
+                            <li><a href="#">{{$productModel->category->name}}</a></li>
+                            <li><a href="#">{{$productModel->brand->name}}</a></li>
                         </ul>
 
                         <ul class="product-links">
-                            <li>Share:</li>
+                            <li>Chia sẻ:</li>
                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
@@ -161,9 +150,9 @@
                     <div id="product-tab">
                         <!-- product tab nav -->
                         <ul class="tab-nav">
-                            <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
+                            <li class="active"><a data-toggle="tab" href="#tab1">Mô tả</a></li>
                             <!--                        <li><a data-toggle="tab" href="#tab2">Details</a></li>-->
-                            <li><a data-toggle="tab" href="#tab3">Comments</a></li>
+                            <li><a data-toggle="tab" href="#tab3">Bình luận</a></li>
                         </ul>
                         <!-- /product tab nav -->
 
@@ -378,7 +367,7 @@
 
                 <div class="col-md-12">
                     <div class="section-title text-center">
-                        <h3 class="title">Related Products</h3>
+                        <h3 class="title">Sản phẩm liên quan</h3>
                     </div>
                 </div>
             @foreach($relatedProducts as $products)
@@ -416,12 +405,25 @@
         <!-- /container -->
     </div>
     <script>
-        function addCartWithQuantity(id){
-            quantity = $(".quantity").val();
-            $.get('' ,{"id":id,"quantity":quantity},function(data){
-            swal("...", "Đã thêm vào giỏ hàng!", "success");
-        });
-    }
+        function addToCartWithQuantity() {
+            let id = $('#product_detail').find(':selected').val();
+            let quantity = $('.quantity').val();
+            $.get('{{route(RouteConstant::HOME_ADD_CART)}}', {"id": id, "quantity": quantity}, function (data) {
+                if (data.type === 'warning') {
+                    swal("Thất bại", "Sản phẩm hết hàng!", "warning");
+                }
+                if (data.type === 'success') {
+                    console.log(data);
+                    swal('Thành công', 'Đã thêm vào giỏ hàng', 'success')
+                }
+                if (data.type === 'error') {
+                    swal('Lỗi', 'Đã xảy ra lỗi, vui lòng thử lại', 'warning')
+                }
+                if (null === data.type || data.type === undefined) {
+                    swal('Error', 'JS error', 'warning')
+                }
+            })
+        }
     </script>
 @endsection
 
