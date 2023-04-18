@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Services\StorageService;
+// use PDF;
 
 class OrderController extends Controller
 {
@@ -132,11 +133,32 @@ class OrderController extends Controller
 
     public function history()
     {
-        return view('home.pages.history');
+        $customer = auth()->guard('user')->user();
+dd($customer);
+        if (isset($customer)) {
+            $orders = Order::where('user_id', $customer->id)->get();
+
+            return view('home.pages.history', [
+                'orders' => $orders,
+            ]);
+        }
+            
+        return redirect()->route('home');
     }
 
     public function historyDetail($id)
     {
-        return view('home.pages.history-detail');
+        $orderDetails = OrderDetail::where('order_id', $id)->get();
+        $customer = auth()->guard('user')->user();
+
+        // if (request('pdf', false)) {
+        //     $pdf = PDF::loadView('home.pdf.order-detail', compact('orderDetails', 'customer'));
+
+        //     return $pdf->stream();
+        // }
+
+        return view('home.pages.history-detail', [
+            'orderDetails' => $orderDetails
+        ]);
     }
 }

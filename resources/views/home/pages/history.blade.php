@@ -25,9 +25,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {{-- @foreach($orders as $order)
+                    @foreach($orders as $order)
                         <tr>
-                            <td>{{$order->customerName}}</td>
+                            <td>{{$order->name}}</td>
                             <td>{{$order->address}}</td>
                             <td>{{$order->phone}}</td>
                             <td>{{$order->note}}</td>
@@ -35,17 +35,18 @@
                             <td>{{number_format($order->subTotal) }} Đ</td>
                             <td>{{$order->created_at}}</td>
 
-                            <td align="left"><a
-                                    href="{{route('order-details.history',['id' => $order->id])}}">
+                            <td align="left">
+                                <a href="{{route(RouteConstant::HOME_HISTORY_DETAIL, ['id' => $order->id])}}">
                                     <i class="fa fa-eye"></i>
-                                </a></td>
+                                </a>
+                            </td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach
                     </tbody>
                 </table>
             </div>
             <div align="center" class="col-md-12" style="margin: 100px auto;">
-                <button  class="btn btn-danger"><a href="{{route('home')}}">Trở về</a></button>
+                <a href="{{route('home')}}" class="btn btn-danger">Trở về</a>
             </div>
         </div>
     </div>
