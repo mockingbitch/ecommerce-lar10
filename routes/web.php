@@ -114,5 +114,7 @@ Route::group(['middleware' => 'locale'], function() {
         Route::get('/remove-cart', [Cart::class, 'remove'])->name(RouteConstant::HOME_REMOVE_CART);
         Route::get('/checkout', [Cart::class, 'checkout'])->name(RouteConstant::HOME_CHECK_OUT);
         Route::post('/confirm-check-out', [Order::class, 'confirm'])->name(RouteConstant::HOME_CONFIRM_CHECKOUT);
+        Route::get('/history', [Order::class, 'history'])->name(RouteConstant::HOME_HISTORY);
+        Route::get('/history/{id}', [Order::class, 'historyDetail'])->name(RouteConstant::HOME_HISTORY_DETAIL);
     });
 });

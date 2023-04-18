@@ -111,13 +111,32 @@ class OrderController extends Controller
 
     public function update($id, $type)
     {
-        if ($type === 'confirm') {
-            Order::where('id', $id)->update(['status' => 1]);
-        }
-        if ($type === 'shipping') {
-            Order::where('id', $id)->update(['status' => 2]);
-        }
+        $order = Order::where('id', $id)->first();
 
-        return redirect()->route('dashboard.order.list');
+        if ($type === 'confirm' &&  $order->status < 1) :
+            $check = Order::where('id', $id)->update(['status' => 1]);
+        endif;
+        if ($type === 'shipping' && $order->status < 2) :
+            $check = Order::where('id', $id)->update(['status' => 2]);
+        endif;
+        if ($type === 'done' && $order->status < 3) :
+            $check = Order::where('id', $id)->update(['status' => 3]);
+        endif;
+
+        if (null !== $check || isset($check)) :
+            return redirect()->route('dashboard.order.list')->with('msg', 'Cập nhật thành công');
+        endif;
+
+        return redirect()->back()->with('errMsg', 'Cập nhật thất bại');
+    }
+
+    public function history()
+    {
+        return view('home.pages.history');
+    }
+
+    public function historyDetail($id)
+    {
+        return view('home.pages.history-detail');
     }
 }

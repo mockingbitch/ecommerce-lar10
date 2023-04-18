@@ -91,4 +91,6 @@ class RouteConstant
     public const HOME_REMOVE_CART       = 'home.remove.cart';
     public const HOME_CHECK_OUT         = 'home.checkout';
     public const HOME_CONFIRM_CHECKOUT  = 'home.confirm.checkout';
+    public const HOME_HISTORY           = 'home.history';
+    public const HOME_HISTORY_DETAIL    = 'home.history.detail';
 }

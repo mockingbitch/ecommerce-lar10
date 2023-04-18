@@ -54,7 +54,7 @@
                 <li><a href="#"><i class="fa fa-map-marker"></i> Laptop Buy</a></li>
             </ul>
             <ul class="header-links pull-right">
-                @if (null !== $user))
+                @if (null !== $user)
                     <li>
                         <div class="dropdown">
                             <button > <i class="fa fa-user-o"></i>{{$user->name ?? ''}}</button>
@@ -72,7 +72,7 @@
                     </li>
                 @else
                     <li>
-                        <a href="">
+                        <a href="{{route('login')}}">
                             <i class="fa fa-user-o"></i>
                             Tài khoản
                         </a>
